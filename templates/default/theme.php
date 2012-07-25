@@ -254,7 +254,7 @@ var RecaptchaOptions = {
 <div class="end"></div>
 <?php } ?>
  <br />
-  <h1>&copy; <?php echo date("Y"); ?> - Powered by <a href="http://sourceforge.net/projects/phpaste/">PASTE</a> 1.0</h1>
+  <h1>&copy; <?php echo date("Y"); ?> - Powered by <a href="https://github.com/nicolask/indechse-paste">Indechse Paste</a> 0.1</h1>
     </div>
    </form>
   </div>

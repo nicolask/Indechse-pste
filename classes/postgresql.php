@@ -149,7 +149,7 @@ class DB
     // Save formatted code for displaying.
     function saveFormatting($pid, $codefmt, $codecss)
     {
-        $sql = "update paste set codefmt=?,codecss=? where pid=?";
+        $sql = "update paste set codefmt=:codefmt,codecss=:codecss where pid=:pid";
         
         $args = array(
             ':codefmt' => $codefmt, 

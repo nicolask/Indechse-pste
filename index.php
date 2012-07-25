@@ -14,10 +14,9 @@
  * GNU General Public License for more details.
  */
 
-date_default_timezone_set('Europe/Berlin');
-
 // Includes
 require_once('classes/config.inc.php');
+date_default_timezone_set($CONF['timezone']);
 require_once('classes/geshi/geshi.php');
 require_once('classes/diff.php');
 require_once('classes/paste.php');
@@ -41,8 +40,9 @@ if (isset($_POST['paste'])) { /* Process posting and redirect */
 // Process downloads.
 if (isset($_GET['dl'])) {
     global $errors;
-    if (isset($_GET['pass']))
+    if (isset($_GET['pass'])) {
         $getPass = $_GET['pass'];
+    }
     $pid = intval($_GET['dl']);
     // If password protected, don't allow to download it.
     mysql_connect($CONF['dbhost'], $CONF['dbuser'], $CONF['dbpass']) or die(mysql_error());

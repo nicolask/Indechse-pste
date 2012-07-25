@@ -23,3 +23,6 @@ $CONF['template']='default';
 
 // Site title (Appears in the <title></title> tags)
 $CONF['title']='PASTE - The name says it all.';
+
+// Timezone
+$CONF['timezone']='Europe/Berlin';

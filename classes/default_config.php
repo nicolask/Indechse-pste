@@ -13,6 +13,9 @@
 * GNU General Public License for more details.
 */
 
+// timezone
+$CONF['timezone']='Europe/Berlin';
+
 // What is the name of the template you want to use (the folder as displayed in /templates/)
 $CONF['template']='default';
 

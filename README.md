@@ -1,12 +1,20 @@
-# Indechse-paste
+# Indechse-Paste
 
-original project can be found here:
+The original project can be found here:
  http://phpaste.sourceforge.net/
 or here:
  https://bitbucket.org/eckstasy/paste
 
-This is a fork of this project. As the original, you may use this software under
+Indechse-Paste is a fork of this project. You may use this software under
 the terms of GNU General Public License(GPL) Version 3.
 
 If you find bugs, please file a bug report at 
 https://github.com/nicolask/indechse-paste/issues
+
+## Why?
+On the search for a pastebin tool for internal use in my company i stumbled 
+upon phpaste on sourceforge. On the first look, it seemed to fit my needs, so 
+I downloaded and installed it. Playing with it and having a quick look into 
+the sources, there were many things i disliked. So i started to hack on the code,
+added some improvements (in my eyes) and this thing here grew.
+Not wanting to loose this thing, I created the project here.

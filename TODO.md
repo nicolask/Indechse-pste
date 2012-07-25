@@ -7,8 +7,9 @@ Syntax:
  [!] Undecided.
  [X] Scrapped.
  
-1.  [=] - Customizable templates.
-2.  [+] - Rework on the differences feature.
-3.  [+] - Add search feature.
-4.  [+] - Add administration panel.
-5.  [+] - Create an installer.
+*  [+] - refactor the db stuff to work with pdo
+*  [+] - Customizable templates.
+*  [+] - Rework on the differences feature.
+*  [+] - Add search feature.
+*  [+] - Add administration panel.
+*  [+] - Create an installer.

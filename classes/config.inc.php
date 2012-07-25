@@ -28,7 +28,7 @@ require_once('config.php');
 $CONF['database']='postgresql';
 
 //path for the pastebin => for http:/domain/pastebin/
-$CONF['pastebin']='/pastebin';
+$CONF['pastebin']='';
 
 // Pull in the required database class.
 switch($CONF['database']){

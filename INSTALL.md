@@ -1,7 +1,7 @@
 # INSTALLATION INSTRUCTIONS
 
 ## Requirements
-*   PHP
+*   PHP >= 5.3
 *   MySQL / PostgreSQL
 
 1.  Create a database for the pastebin.

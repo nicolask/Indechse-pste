@@ -29,7 +29,7 @@
 <?php  
 	foreach($page['recent'] as $idx=>$entry)
 	{
-		if ($entry['pid']==$pid)
+		if (isset($pid) && $entry['pid']==$pid)
 			$cls=" class=\"highlight\"";
 		else
 			$cls="";
@@ -109,19 +109,17 @@ function showMe()
 }
 
 // Check for a password.
-$postPass = $_POST['thePassword'];
+$postPass = isset($_POST['thePassword']) ? $_POST['thePassword'] : null;
 
-if ($pid >0)
+if (isset($pid) && $pid >0)
 {
 	global $pid;
-    $db = new DB;
-    $newPID = $db->_escape_string($pid);
-    $result = $db->_query("SELECT * from paste where pid = " . $newPID);
-    $row = $db->_fetch_array($result);
+    $db = new DB();
+    $row = $db->getPaste($pid);
 
 	$pass = $row['password'];
 
-	if (isset($pass) && ($pass != "EMPTY"))
+	if (isset($pass) && ($pass != sha1("EMPTY")))
 	{
 		if (!isset($postPass))
 		{
@@ -132,7 +130,7 @@ if ($pid >0)
    			echo "</form></center>";
 		}
 
-		else if (strcmp($postPass, $pass) == 0) {
+		else if (strcmp(sha1($postPass), $pass) == 0) {
    		showMe();
 		}
 
@@ -154,12 +152,12 @@ if (isset($_GET['archive']))
 	<?php
 
     $db = new DB;
-	$pastes = $db->_query("SELECT * FROM paste ORDER BY posted DESC");
+	$pastes = $db->getAllPastes();
 
 
 	echo "<table class=\"archive\">";
 	echo "<tr><th></th><th>Name</th><th class=\"padright\">Language</th><th>Posted on</th><th>Expires</th></tr>";
-	while ($row = $db->_fetch_array($pastes))
+	foreach ($pastes as $row)
 	{
         $pass = ($row['password'] == "EMPTY") ? "" : "<img src=\"templates/default/images/lock.png\" title=\"Password protected\" />";
         echo "<tr>";

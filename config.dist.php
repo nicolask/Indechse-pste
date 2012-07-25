@@ -11,9 +11,9 @@
  */
 
 $CONF['dbhost']='localhost';
-$CONF['dbname']='mysqldatabase';
-$CONF['dbuser']='mysqluser';
-$CONF['dbpass']='databasepassword';
+$CONF['dbname']='database';
+$CONF['dbuser']='user';
+$CONF['dbpass']='password';
 
 // This should be the URL to your pastebin. eg: http://paste.info.tm/ or http://paste.info.tm/subdir/
 $CONF['url']='http://paste.info.tm/';// Make sure you end it with a forward slash! (/)

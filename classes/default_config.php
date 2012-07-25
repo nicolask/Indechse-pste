@@ -12,15 +12,6 @@
 * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 * GNU General Public License for more details.
 */
- 
-// MySQL database
-$CONF['dbhost']='localhost';
-$CONF['dbname']='mysqldatabase';
-$CONF['dbuser']='mysqluser';
-$CONF['dbpass']='databasepassword';
-
-// This should be the URL to your pastebin. eg: http://paste.info.tm/ or http://paste.info.tm/subdir/
-$CONF['url']='http://paste.info.tm/';// Make sure you end it with a forward slash! (/)
 
 // What is the name of the template you want to use (the folder as displayed in /templates/)
 $CONF['template']='default';

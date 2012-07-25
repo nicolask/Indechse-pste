@@ -21,6 +21,7 @@
 $CONF=array();
 
 // Include the configration file
+require_once(dirname(__FILE__).'/default_config.php');
 require_once('config.php');
 
 //Set the database to use: postgresql, mysql

@@ -20,8 +20,11 @@
  
 $CONF=array();
 
+define('CLASS_PATH', realpath(dirname(__FILE__)));
+
 // Include the configration file
-require_once(dirname(__FILE__).'/default_config.php');
+require_once(CLASS_PATH.'/Database.php');
+require_once(CLASS_PATH.'/default_config.php');
 require_once('config.php');
 
 //Set the database to use: postgresql, mysql
@@ -33,9 +36,13 @@ $CONF['pastebin']='';
 // Pull in the required database class.
 switch($CONF['database']){
     case "postgresql":
+        Database::getInstance()->createConnection('pgsql', 
+                $CONF["dbhost"], $CONF['dbname'], $CONF["dbuser"], $CONF["dbpass"]);
         require_once('classes/postgresql.php');
         break;
     case "mysql":
+        Database::getInstance()->createConnection('mysql', 
+                $CONF["dbhost"], $CONF['dbname'], $CONF["dbuser"], $CONF["dbpass"]);
         require_once('classes/mysql.php');
         break;
 }

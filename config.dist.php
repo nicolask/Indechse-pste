@@ -1,7 +1,7 @@
 <?php
 
 /**
- * copy this file and name it config.php
+ * copy this file to config.php
  * then modify to match your needs
  * 
  * you can override all the options available in classes/default_config.php

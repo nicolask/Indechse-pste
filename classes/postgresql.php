@@ -24,24 +24,10 @@ class DB
 
     private $_conn;
     
-    var $dblink;
-    var $dbresult;
-    var $pgString;
-    var $host;
-    var $user;
-    var $pass;
-    var $dbname;
-
     // Constructor - establishes DB connection
     public function __construct()
     {
-        global $CONF;
-        $host = $CONF["dbhost"];
-        $user = $CONF["dbuser"];
-        $pass = $CONF["dbpass"];
-        $dbname = $CONF["dbname"];
-        
-        $this->_conn = new PDO("pgsql:host={$host};dbname={$dbname};user={$user};password={$pass}");
+        $this->_conn = Database::getInstance()->getConnection();
         
     }
 
@@ -75,23 +61,28 @@ class DB
         //figure out expiry time
         switch ($expiry_flag) {
             case 'd':
-                $expires = "NOW() + cast('1 days' as INTERVAL)";
+                $date = new DateTime();
+                $date->add(new DateInterval('P1D'));
+                $expires = $date->format('Y-m-d H:i:s');
                 break;
             case 'f':
                 $expires = "NULL";
                 break;
             default:
-                $expires = "NOW() + cast('1 months' as INTERVAL)";
+                $date = new DateTime();
+                $date->add(new DateInterval('P1D'));
+                $expires = $date->format('Y-m-d H:i:s');;
                 break;
         }
         $sql = 'insert into paste (poster, posted, format, code, parent_pid, expires, expiry_flag, password) ' .
-                "values (:poster, now(), :format, :code, :parentpid, $expires, :expiryflag, :password)"; 
+                "values (:poster, now(), :format, :code, :parentpid, :expires, :expiryflag, :password)"; 
                 
         $args = array(
             ':poster' => $poster, 
             ':format' => $format, 
             ':code' => $code, 
             ':parentpid' => $parent_pid, 
+            ':expires' => $expires,
             ':expiryflag' => $expiry_flag, 
             ':password' => sha1($password)
         );
@@ -117,7 +108,7 @@ class DB
     
     function getAllPastes()
     {
-        $stmt = $this->_conn->prepare('select * from paste');
+        $stmt = $this->_conn->prepare('select * from paste ORDER BY posted DESC');
         $stmt->execute();
         $result = $stmt->fetchAll();
         return $result;
@@ -238,4 +229,3 @@ class DB
 
 }
 
-?>

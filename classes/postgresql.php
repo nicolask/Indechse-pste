@@ -70,7 +70,7 @@ class DB
                 break;
             default:
                 $date = new DateTime();
-                $date->add(new DateInterval('P1D'));
+                $date->add(new DateInterval('P1M'));
                 $expires = $date->format('Y-m-d H:i:s');;
                 break;
         }

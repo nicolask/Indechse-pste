@@ -48,6 +48,8 @@ $CONF['highlight_prefix']='@@';
 // Default syntax highlight for pastes.
 $CONF['default_highlighter']='text';
 
+$CONF['itemsPerPage'] = 3;
+
 // Available formats (All GeSHi formats are here)
 $CONF['geshiformats']=array(
 	'abap'=>'ABAP',

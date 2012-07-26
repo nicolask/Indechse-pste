@@ -9,7 +9,7 @@ class Database
         
     }
     
-    public function getInstance() {
+    public static function getInstance() {
         if (!(self::$_instance instanceof Database)) {
             self::$_instance = new Database();
         }
@@ -50,6 +50,7 @@ class Database
             default:
                 throw new Exception(sprintf("unsupported database driver '%s'", $driver));
         }
+        $this->_conn[$name]->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
     }
 }

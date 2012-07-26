@@ -12,6 +12,13 @@ class Maintain_Tool
      */
     private $_conn;
     
+    /**
+     * public constructor which gets the path to the update scripts and an
+     * instance of PDO
+     * 
+     * @param string $updateLocation
+     * @param PDO $db 
+     */
     public function __construct($updateLocation, PDO $db) {
         $this->_updateLocation = $updateLocation;
         $this->_conn = $db;
@@ -20,13 +27,23 @@ class Maintain_Tool
         
     }
     
+    /**
+     * starts the update process when called 
+     */
     public function run() {
         $this->_performUpdates();
     }
     
+    /**
+     * method to scan the given folder for updates
+     * 
+     * @param type $dir
+     * @throws Exception 
+     */
     private function _scanUpdatesFolder($dir) {
         $dhandle = opendir($dir);
         if ($dhandle) {
+            $currentRevision = $this->_getCurrentRevision();
             // loop through all of the files
             while (false !== ($fname = readdir($dhandle))) {
                 if (($fname != '.') && ($fname != '..')) {
@@ -36,7 +53,7 @@ class Maintain_Tool
                             if ($number == 0) {
                                 throw new Exception("the update file '{$fname}' does not contain the revision number");
                             }
-                            error_log('number '.$number);
+                            if ($number <= $currentRevision) continue;
                             $this->_availableUpdates[$number] = $fname;
                         }
                             
@@ -51,7 +68,7 @@ class Maintain_Tool
     }
     
     /**
-     * @TODO wrap the update into a transaction 
+     * executes all the update classes
      */
     private function _performUpdates() {
         foreach($this->_availableUpdates as $rev => $u) {
@@ -71,12 +88,23 @@ class Maintain_Tool
         }
     }
     
+    /**
+     * inserts a record in database when an update was successful
+     *  
+     * @param type $rev
+     * @param type $classname 
+     */
     private function _markUpdateComplete($rev, $classname) {
         error_log(sprintf("Update %s (%d) completed", $classname, $rev));
         $stmt = $this->_conn->prepare("INSERT INTO dbrev (revision, updatename) VALUES (?,?)");
         $stmt->execute(array($rev, $classname));
     }
     
+    /**
+     * getter for current revision
+     * 
+     * @return int 
+     */
     private function _getCurrentRevision() {
         try {
             $rev = $this->_conn->query("SELECT MAX(revision) FROM dbrev")->fetchColumn(0);

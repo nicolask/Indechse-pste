@@ -131,9 +131,18 @@
                     ?>
                     <h1>Archive (This could take a while to load)</h1>
                     <?php
-                    $db = new DB;
-                    $pastes = $db->getAllPastes();
-
+                    $db = new DB();
+                    $pastes = $db->getAllPastes($request->getParam('page', 1), $CONF['itemsPerPage']);
+                    $cnt = $db->getPasteCount();
+                    $pageNum = 1;
+                    echo "<div>";
+                    do {
+                        $style = $pageNum == $request->getParam('page', 1) ? 'font-size: 1.5em' : '';
+                        printf('<a style="padding-right:10px; %3$s" href="%1$s?archive&page=%2$s">%2$s</a>', $CONF['url'], $pageNum, $style);
+                        
+                        $pageNum++;
+                    } while ((($pageNum)*$CONF['itemsPerPage'])<=$cnt);
+                    echo "</div>";
 
                     echo "<table class=\"archive\">";
                     echo "<tr><th></th><th>Name</th><th class=\"padright\">Language</th><th>Posted on</th><th>Expires</th></tr>";
@@ -149,6 +158,8 @@
                     }
 
                     echo "</table>";
+                    // add paging
+                    
                 } else {
                     ?>
                 </div>
@@ -189,7 +200,7 @@
                             <div class="end"></div>
                             <!-- The name box -->
                             <div id="namebox"> <label for="poster">Name/Title (Optional)</label><br/>
-                                <input type="text" maxlength="24" size="24" id="poster" name="poster" value="<?php echo $page['poster'] ?>" />
+                                <input type="text" maxlength="16" size="16" id="poster" name="poster" value="<?php echo $page['poster'] ?>" />
                                 <input type="submit" name="paste" value="Submit"/> <br />
                             </div>
 

@@ -8,10 +8,21 @@ class Config {
     }
     
     public function __get($name) {
-        if (array_key_exists($name, $this->config) && is_array($this->_config[$name])) {
+        if (array_key_exists($name, $this->_config) && is_array($this->_config[$name])) {
             return new Config($name);
         }
         
+        return $this->_config[$name];
+    }
+    
+    public function toArray() {
+        return $this->_config;
+    }
+    
+    public function get($name) {
+        if (!array_key_exists($name, $this->_config)) {
+            return null;
+        }
         return $this->_config[$name];
     }
 }

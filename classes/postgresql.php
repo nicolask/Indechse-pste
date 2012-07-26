@@ -2,6 +2,7 @@
 
 /*
  * Copyright (C) 2011 Roberto Rodríguez Pino <rodpin@gmail.com>
+ *           (C) 2012 Nicolas Krueger <nicolas.krueger@gmail.com>
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
@@ -66,7 +67,7 @@ class DB
                 $expires = $date->format('Y-m-d H:i:s');
                 break;
             case 'f':
-                $expires = "NULL";
+                $expires = null;
                 break;
             default:
                 $date = new DateTime();
@@ -106,9 +107,10 @@ class DB
             return false;
     }
     
-    function getAllPastes()
+    function getAllPastes($page=1, $limit=30)
     {
-        $stmt = $this->_conn->prepare('select * from paste ORDER BY posted DESC');
+        $offset = ($page-1)*$limit+1;
+        $stmt = $this->_conn->prepare("select * from paste ORDER BY posted DESC LIMIT {$limit} OFFSET {$offset}");
         $stmt->execute();
         $result = $stmt->fetchAll();
         return $result;
@@ -160,71 +162,6 @@ class DB
         $stmt = $this->_conn->prepare($sql);
         $stmt->execute($args);
         
-    }
-
-    // Execute query - should be regarded as private to insulate the rest ofthe application from sql differences.
-    function _query($sql)
-    {
-        // Been passed more parameters? do some smart replacement.
-        if (func_num_args() > 1) {
-            // Query contains ? placeholders, but it's possible the
-            // replacement string have ? in too, so we replace them in
-            // our with something more unique
-            $q = md5(uniqid(rand(), true));
-            $sql = str_replace('?', $q, $sql);
-
-            $args = func_get_args();
-            for ($i = 1; $i <= count($args); $i++) {
-                $sql = preg_replace("/$q/", "'" . preg_quote(pg_escape_string($args[$i])) . "'", $sql, 1);
-            }
-            // We shouldn't have any $q left, but it will help debugging if we change them back!
-            $sql = str_replace($q, '?', $sql);
-        }
-        $this->dbresult = pg_query($sql);
-        if (!$this->dbresult) {
-            die("Query failure: " . pg_last_error() . "<br />$sql");
-        }
-        return $this->dbresult;
-    }
-
-    // get next record after executing _query.
-    function _next_record()
-    {
-        $this->row = pg_fetch_array($this->dbresult);
-        return $this->row != FALSE;
-    }
-
-    // Get result column $field.
-    function _f($field)
-    {
-        return $this->row[$field];
-    }
-
-    // Get the last insertion ID.
-    function _get_insert_id()
-    {
-        $insert_query = pg_query($db, "SELECT nextval('paste_pid_seq');");
-        $insert_row = pg_fetch_row($insert_query);
-        $insert_id = $insert_row[0];
-        return $insert_id;
-    }
-
-    // Get last error.
-    function get_db_error()
-    {
-        return pg_last_error();
-    }
-
-    //fetch array
-    function _fetch_array($result)
-    {
-        return pg_fetch_array($result);
-    }
-
-    //escape string
-    function _escape_string($pid)
-    {
-        return pg_escape_string($pid);
     }
 
 }

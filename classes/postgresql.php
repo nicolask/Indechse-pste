@@ -109,7 +109,7 @@ class DB
     
     function getAllPastes($page=1, $limit=30)
     {
-        $offset = ($page-1)*$limit+1;
+        $offset = ($page-1)*$limit;
         $stmt = $this->_conn->prepare("select * from paste ORDER BY posted DESC LIMIT {$limit} OFFSET {$offset}");
         $stmt->execute();
         $result = $stmt->fetchAll();

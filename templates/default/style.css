@@ -362,3 +362,9 @@ table.diff tr.hideold
 {
 	display:none;
 }
+
+#credits {
+    width: 100%;
+    padding-top: 10px;
+    text-align: right;
+}

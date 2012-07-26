@@ -243,7 +243,9 @@
                         <div class="end"></div>
 <?php } ?>
                     <br />
+                    <div id="credits"><a href="http://qbnz.com/highlighter"><img src="http://qbnz.com/highlighter/images/powered-by-geshi.png" alt="Powered by GeSHi" /></a></div>
                     <h1>&copy; <?php echo date("Y"); ?> - Powered by <a href="https://github.com/nicolask/indechse-paste">Indechse Paste</a> 0.1</h1>
+                    
                 </div>
             </form>
         </div>

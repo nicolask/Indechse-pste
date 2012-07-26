@@ -251,7 +251,7 @@ class Pastebin
             elseif ($minutes > 0)
                 $age = "$minutes minute" . (($minutes > 1) ? "s" : "") . " ago";
             else
-                $age = "$seconds second" . (($seconds > 1) ? "s" : "") . " ago";
+                $age = "< 1 min ago";
 
             $url = $this->getPasteURL($post['pid']);
 

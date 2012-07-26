@@ -46,4 +46,17 @@ switch($CONF['database']){
         require_once('classes/mysql.php');
         break;
 }
-?>
+
+require_once CLASS_PATH.'/Registry.php';
+require_once CLASS_PATH.'/Config.php';
+
+/**
+ * wrapper for config instance creation so the instance does not live in global
+ * scope 
+ */
+function bootstrap($configuration_array) {
+    $config = new Config($configuration_array);
+    Registry::getInstance()->config = $config;
+}
+
+bootstrap($CONF);

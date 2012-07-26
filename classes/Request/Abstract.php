@@ -41,8 +41,24 @@ abstract class Request_Abstract
         return $default;
     }
     
-    public final function hasParam($param) {
-        if (isset($this->_request[$param])) {
+    public final function hasParam($param, $type='REQUEST') {
+        $data = null;
+        switch ($type) {
+            case 'POST':
+                $data = $this->_post;
+                break;
+            case 'GET':
+                $data = $this->_get;
+                break;
+            case 'COOKIE':
+                $data = $this->_cookie;
+                break;
+            case 'REQUEST':
+            default:
+                $data = $this->_request;
+                break;
+        }
+        if (isset($data[$param])) {
             return true;
         }
         

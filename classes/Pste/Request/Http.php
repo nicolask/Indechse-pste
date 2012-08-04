@@ -1,5 +1,5 @@
 <?php
-class Request_Http extends Request_Abstract
+class Pste_Request_Http extends Pste_Request_Abstract
 {
     protected function _init() {
        $this->_post = $_POST;

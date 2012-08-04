@@ -15,7 +15,7 @@
  */
 
 // Includes
-require_once('classes/config.inc.php');
+require_once('classes/bootstrap.php');
 
 date_default_timezone_set($CONF['timezone']);
 error_reporting(-1);
@@ -24,9 +24,16 @@ require_once('classes/geshi/geshi.php');
 require_once('classes/diff.php');
 require_once('classes/paste.php');
 
-require_once('classes/Request.php');
-$request = Request::getInstance();
-$config = Registry::getInstance()->config;
+require_once('Pste/Request.php');
+
+require_once('components/RecentItems.php');
+require_once('components/SinglePaste.php');
+require_once('components/StaticPage.php');
+require_once('components/PasteArchive.php');
+require_once('components/PasteForm.php');
+
+$request = Pste_Request::getInstance();
+$config = Pste_Registry::getInstance()->config;
 
 
 try {
@@ -86,10 +93,6 @@ try {
     $page['expiry'] = $config->default_expiry;
     $page['remember'] = '';
 
-// Add list of recent posts.
-    $list = intval($request->getParam('list', 10));
-    $page['recent'] = $pastebin->getRecentPosts($list);
-
 // Show a post.
     if ($request->hasParam('show')) {
         $pid = intval($request->getParam('show'));
@@ -110,6 +113,14 @@ try {
     }
 
 // HTML page output.
+    if ($request->hasParam('show')) {
+        $content = Pste_Component::add(new SinglePaste(array('pid' => $request->getParam('show'), 'request' => $request)));
+    } else if ($request->hasParam('archive')) {
+        $content = Pste_Component::add(new PasteArchive(array('page' => $request->getParam('page'), 'request' => $request)));
+    } else {
+        $content = Pste_Component::add(new PasteForm(array('request' => $request)));
+    }
+
     include('templates/' . $config->template . '/theme.php');
 } catch (Exception $ex) {
     header('Content-type: text/plain');

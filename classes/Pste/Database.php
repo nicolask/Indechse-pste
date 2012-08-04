@@ -1,5 +1,5 @@
 <?php
-class Database 
+class Pste_Database 
 {
     private static $_instance;
     
@@ -10,8 +10,8 @@ class Database
     }
     
     public static function getInstance() {
-        if (!(self::$_instance instanceof Database)) {
-            self::$_instance = new Database();
+        if (!(self::$_instance instanceof Pste_Database)) {
+            self::$_instance = new Pste_Database();
         }
         
         return self::$_instance;

@@ -1,5 +1,5 @@
 <?php
-abstract class Request_Abstract
+abstract class Pste_Request_Abstract
 {
     
     protected $_post;

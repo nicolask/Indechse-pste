@@ -28,7 +28,7 @@ class DB
     // Constructor - establishes DB connection
     public function __construct()
     {
-        $this->_conn = Database::getInstance()->getConnection();
+        $this->_conn = Pste_Database::getInstance()->getConnection();
         
     }
 
@@ -100,7 +100,7 @@ class DB
     {
         $stmt = $this->_conn->prepare('select *,posted as postdate from paste where pid=?');
         $stmt->execute(array($id));
-        $result = $stmt->fetchAll();
+        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
         if (count($result))
             return $result[0];
         else

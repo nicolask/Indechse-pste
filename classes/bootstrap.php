@@ -20,12 +20,19 @@
  
 $CONF=array();
 
-define('CLASS_PATH', realpath(dirname(__FILE__)));
+define('APP_PATH', realpath(dirname(__FILE__)."/.."));
+define('CLASS_PATH', APP_PATH."/classes");
+define('LIB_PATH', APP_PATH."/lib");
+
+set_include_path(LIB_PATH.PATH_SEPARATOR
+                .CLASS_PATH.PATH_SEPARATOR
+                .APP_PATH.PATH_SEPARATOR
+                .get_include_path());
 
 // Include the configration file
-require_once(CLASS_PATH.'/Database.php');
-require_once(CLASS_PATH.'/default_config.php');
-require_once('config.php');
+require_once('Pste/Database.php');
+require_once('default_config.php');
+require_once(APP_PATH.'/config.php');
 
 //Set the database to use: postgresql, mysql
 $CONF['database']='postgresql';
@@ -36,27 +43,32 @@ $CONF['pastebin']='';
 // Pull in the required database class.
 switch($CONF['database']){
     case "postgresql":
-        Database::getInstance()->createConnection('pgsql', 
+        Pste_Database::getInstance()->createConnection('pgsql', 
                 $CONF["dbhost"], $CONF['dbname'], $CONF["dbuser"], $CONF["dbpass"]);
         require_once('classes/postgresql.php');
         break;
     case "mysql":
-        Database::getInstance()->createConnection('mysql', 
+        Pste_Database::getInstance()->createConnection('mysql', 
                 $CONF["dbhost"], $CONF['dbname'], $CONF["dbuser"], $CONF["dbpass"]);
         require_once('classes/mysql.php');
         break;
 }
 
-require_once CLASS_PATH.'/Registry.php';
-require_once CLASS_PATH.'/Config.php';
+require_once 'Pste/Registry.php';
+require_once 'Pste/Config.php';
+require_once('Pste/Component.php');
+require_once('Pste/View/helpers/HeadTitle.php');
+
+$ht = new Pste_View_Helper_HeadTitle();
+$ht->setTitle('Pste', 'replace');
 
 /**
  * wrapper for config instance creation so the instance does not live in global
  * scope 
  */
 function bootstrap($configuration_array) {
-    $config = new Config($configuration_array);
-    Registry::getInstance()->config = $config;
+    $config = new Pste_Config($configuration_array);
+    Pste_Registry::getInstance()->config = $config;
 }
 
 bootstrap($CONF);

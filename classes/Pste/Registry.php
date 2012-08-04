@@ -1,5 +1,5 @@
 <?php
-class Registry {
+class Pste_Registry {
     
     private $_items = array();
     
@@ -10,8 +10,8 @@ class Registry {
     }
     
     public static function getInstance() {
-        if (!(self::$_instance instanceof Registry)) {
-            self::$_instance = new Registry();
+        if (!(self::$_instance instanceof Pste_Registry)) {
+            self::$_instance = new Pste_Registry();
         }
         
         return self::$_instance;

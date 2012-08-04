@@ -1,5 +1,5 @@
 <?php
-class Config {
+class Pste_Config {
     
     private $_config = array();
     
@@ -9,7 +9,7 @@ class Config {
     
     public function __get($name) {
         if (array_key_exists($name, $this->_config) && is_array($this->_config[$name])) {
-            return new Config($name);
+            return new Pste_Config($name);
         }
         
         return $this->_config[$name];

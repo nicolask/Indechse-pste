@@ -159,7 +159,7 @@ code { font-size:12px;width:98%;}
    border: 1px solid #A8A8A8;
 }
 
-#paste {
+.paste {
    padding: 5px;
    top: 27px;
    background-color: white;
@@ -366,5 +366,5 @@ table.diff tr.hideold
 #credits {
     width: 100%;
     padding-top: 10px;
-    text-align: right;
+    text-align: center;
 }

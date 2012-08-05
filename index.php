@@ -41,7 +41,7 @@ try {
     $pastebin = new Pastebin($CONF);
 
 /// Clean up older posts 
-    $pastebin->doGarbageCollection();
+//    $pastebin->doGarbageCollection();
 
 // Process new posting
     $errors = array();

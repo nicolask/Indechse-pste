@@ -15,6 +15,9 @@ $CONF['dbname']='database';
 $CONF['dbuser']='user';
 $CONF['dbpass']='password';
 
+// set the driver for your database (pgsql|mysql)
+$CONF['driver'] = 'driver';
+
 // This should be the URL to your pastebin. eg: http://paste.info.tm/ or http://paste.info.tm/subdir/
 $CONF['url']='http://local.paste:8080/';// Make sure you end it with a forward slash! (/)
 

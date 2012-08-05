@@ -9,6 +9,10 @@ class Pste_Database
         
     }
     
+    /**
+     *
+     * @return Pste_Database 
+     */
     public static function getInstance() {
         if (!(self::$_instance instanceof Pste_Database)) {
             self::$_instance = new Pste_Database();
@@ -29,7 +33,7 @@ class Pste_Database
     /**
      *
      * @param string $name
-     * @return PDO|null
+     * @return PDO
      */
     public function getConnection($name='default') {
         if ($this->_conn[$name] instanceof PDO) {
@@ -42,10 +46,12 @@ class Pste_Database
     public function createConnection($driver, $host, $dbname, $username, $password, $name='default') {
         switch ($driver) {
             case 'pgsql':
+            case 'postgres':
+            case 'postgresql':
                 $this->_conn[$name] = new PDO("pgsql:host={$host};dbname={$dbname};user={$username};password={$password}");
                 break;
             case 'mysql':
-                $this->_conn[$name] = new PDO("pgsql:host={$host};dbname={$dbname}",$username, $password);
+                $this->_conn[$name] = new PDO("mysql:host={$host};dbname={$dbname}",$username, $password);
                 break;
             default:
                 throw new Exception(sprintf("unsupported database driver '%s'", $driver));

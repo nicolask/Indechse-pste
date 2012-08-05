@@ -25,10 +25,13 @@ class DB
 
     private $_conn;
     
+    private $_driver;
+    
     // Constructor - establishes DB connection
     public function __construct()
     {
         $this->_conn = Pste_Database::getInstance()->getConnection();
+        $this->_driver = $this->_conn->getAttribute(PDO::ATTR_DRIVER_NAME);
         
     }
 
@@ -122,10 +125,17 @@ class DB
         $limit = $count ? "limit $count" : "";
 
         $posts = array();
-        $sql = ("select pid, poster, extract(epoch from now())-extract(epoch from posted) as age, " .
-                "posted as postdate " .
-                "from paste " .
-                "order by posted desc, pid desc $limit");
+        if ($this->_driver == 'pgsql') {
+            $sql = ("SELECT pid, poster, extract(epoch from now())-extract(epoch from posted) as age, 
+                     posted as postdate 
+                     FROM paste 
+                     ORDER BY posted desc, pid desc $limit");
+        } else if ($this->_driver  == 'mysql') {
+            $sql = ("SELECT pid, poster, TIMESTAMPDIFF(SECOND, posted,now()) as age, 
+                     posted as postdate 
+                     FROM paste 
+                     ORDER BY posted desc, pid desc $limit");
+        }
         
         $results = $this->_conn->query($sql)->fetchAll(PDO::FETCH_ASSOC);
         

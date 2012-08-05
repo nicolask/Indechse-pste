@@ -34,23 +34,23 @@ require_once('Pste/Database.php');
 require_once('default_config.php');
 require_once(APP_PATH.'/config.php');
 
-//Set the database to use: postgresql, mysql
-$CONF['database']='postgresql';
 
 //path for the pastebin => for http:/domain/pastebin/
 $CONF['pastebin']='';
 
 // Pull in the required database class.
-switch($CONF['database']){
+switch($CONF['driver']){
     case "postgresql":
+    case "pgsql":
+    case "postgres":
         Pste_Database::getInstance()->createConnection('pgsql', 
                 $CONF["dbhost"], $CONF['dbname'], $CONF["dbuser"], $CONF["dbpass"]);
-        require_once('classes/postgresql.php');
+        require_once('classes/db.php');
         break;
     case "mysql":
         Pste_Database::getInstance()->createConnection('mysql', 
                 $CONF["dbhost"], $CONF['dbname'], $CONF["dbuser"], $CONF["dbpass"]);
-        require_once('classes/mysql.php');
+        require_once('classes/db.php');
         break;
 }
 

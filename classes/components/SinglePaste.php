@@ -12,8 +12,6 @@ class SinglePaste extends Pste_View
     /**
      * get the data for the paste-poste
      * 
-     * @todo modify title of page
-     * 
      * @return type 
      */
     public function getPaste()
@@ -91,6 +89,7 @@ class SinglePaste extends Pste_View
         }
         $paste['pid'] = $pid;
         $paste['downloadurl'] = $conf->url.$post['pid'];
+        $this->url = $conf->url;
 
         $this->post = $paste;
     }

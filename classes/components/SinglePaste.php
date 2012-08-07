@@ -93,9 +93,12 @@ class SinglePaste extends Pste_View
         }
         $paste['pid'] = $pid;
         $paste['downloadurl'] = $conf->url.$post['pid'];
+        
         $this->url = $conf->url;
-
         $this->post = $paste;
+        $this->geshiformats = $conf->get('geshiformats');
+        $this->popular_syntax = $conf->get('popular_syntax');
+        $this->format = $format;
     }
 
 }

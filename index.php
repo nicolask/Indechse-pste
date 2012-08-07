@@ -25,18 +25,29 @@ require_once('classes/diff.php');
 require_once('classes/paste.php');
 
 require_once('Pste/Request.php');
+require_once('Pste/Auth.php');
+require_once('Pste/User.php');
 
 require_once('components/RecentItems.php');
 require_once('components/SinglePaste.php');
 require_once('components/StaticPage.php');
 require_once('components/PasteArchive.php');
 require_once('components/PasteForm.php');
+require_once('components/UserLogin.php');
 
 $request = Pste_Request::getInstance();
 $config = Pste_Registry::getInstance()->config;
 
-
 try {
+    // authentication
+    $auth = new Pste_Auth($request);
+    if (!$auth->isAuthenticated()) {
+        Pste_Registry::getInstance()->authenticated = false;
+    } else {
+        Pste_Registry::getInstance()->authenticated = true;
+        Pste_Registry::getInstance()->user = $auth->getUser();
+    }
+    
 // Create our pastebin object
     $pastebin = new Pastebin($CONF);
 
@@ -117,11 +128,14 @@ try {
         $content = Pste_Component::add(new SinglePaste(array('pid' => $request->getParam('show'), 'request' => $request)));
     } else if ($request->hasParam('archive')) {
         $content = Pste_Component::add(new PasteArchive(array('page' => $request->getParam('page'), 'request' => $request)));
-    } else {
+    } else if ($request->hasParam('submit', 'GET')) {
         $content = Pste_Component::add(new PasteForm(array('request' => $request)));
+    } else {
+        $content = Pste_Component::add(new StaticPage(array('template' => 'components/frontpage.php', 'request' => $request)));
     }
-
+    ob_start();
     include('templates/' . $config->template . '/theme.php');
+    ob_end_flush();
 } catch (Exception $ex) {
     header('Content-type: text/plain');
     echo "An error occured\n";

@@ -116,7 +116,7 @@ try {
     }
 
 // HTML page output.
-    if ($request->hasParam('show')) {
+    if ($request->hasParam('show') && (($config->restrict_show && Pste_Registry::getInstance()->authenticated) || !$config->restrict_show)) {
         $content = Pste_Component::add(new SinglePaste(array('pid' => $request->getParam('show'), 'request' => $request)));
     } else if ($request->hasParam('archive')) {
         $content = Pste_Component::add(new PasteArchive(array('page' => $request->getParam('page'), 'request' => $request)));

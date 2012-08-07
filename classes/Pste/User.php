@@ -2,25 +2,42 @@
 class Pste_User
 {
     protected $_conn;
+    
+    /**
+     *
+     * @var Pste_Db_User 
+     */
+    protected $_stmtBuilder;
     protected $_id;
     protected $_username;
     protected $_profile = null;
     
     public function __construct($id=null) {
         $this->_conn = Pste_Database::getInstance()->getConnection();
+        $this->_initStatementBuilder();
         if ($id) {
             $this->_id = $id;
             $this->_populate();
         }
     }
     
+    protected function _initStatementBuilder() {
+        switch($this->_conn->getAttribute(PDO::ATTR_DRIVER_NAME)) {
+            case 'pgsql':
+                include_once('Pste/Db/Pgsql/User.php');
+                $this->_stmtBuilder = new Pste_Db_Pgsql_User();
+                break;
+            default:
+            case 'mysql':
+                include_once('Pste/Db/Mysql/User.php');
+                $this->_stmtBuilder = new Pste_Db_Mysql_User();
+                break;
+        }
+    }
+    
     public function find($username, $password) {
         $encPw = sha1($password);
-        if ($this->_driver == 'pgsql') {
-            $sql = 'SELECT id, username FROM "user" WHERE username = :username AND password = :password';
-        } else {
-            $sql = 'SELECT id, username FROM `user` WHERE username = :username AND password = :password';
-        }
+        $sql = $this->_stmtBuilder->find();
         $stmt = $this->_conn->prepare($sql);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':password', $encPw);

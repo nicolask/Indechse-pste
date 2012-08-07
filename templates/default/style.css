@@ -368,3 +368,16 @@ table.diff tr.hideold
     padding-top: 10px;
     text-align: center;
 }
+
+.paginator {
+    width: 100%;
+    padding-left: 2em;
+    margin-top: 0.7em;
+    margin-bottom: 1.5em;
+    text-align: left; 
+}
+
+.page-enum {
+    padding-left: 2em;
+    padding-right: 2em; 
+}

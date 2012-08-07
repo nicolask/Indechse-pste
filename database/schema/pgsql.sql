@@ -21,3 +21,26 @@ CREATE TABLE "dbrev" (
     PRIMARY KEY ("id"),
     UNIQUE ("revision", "updatename")
 );
+
+CREATE TABLE "user" (
+    "id" serial NOT NULL,
+    "username" VARCHAR(40) NOT NULL,
+    "password" VARCHAR(40) NOT NULL,
+    "active" BOOLEAN NOT NULL DEFAULT true,
+    PRIMARY KEY ("id")
+);
+
+CREATE TABLE "group" (
+    "id" serial NOT NULL,
+    "groupname" VARCHAR(40) NOT NULL,
+    "parent_group" INTEGER REFERENCES "group"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY ("id")
+);
+
+CREATE TABLE "membership" (
+    "id" serial NOT NULL,
+    "group_id" INTEGER REFERENCES "group"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    "user_id" INTEGER REFERENCES "user"("id") ON DELETE CASCADE ON UPDATE CASCADE,
+    PRIMARY KEY("id"),
+    UNIQUE("group_id", "user_id")
+);

@@ -21,3 +21,26 @@ CREATE TABLE `dbrev` (
     PRIMARY KEY (`id`),
     UNIQUE (`revision`, `updatename`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1;
+
+CREATE TABLE `user` (
+    `id` serial NOT NULL,
+    `username` VARCHAR(40) NOT NULL,
+    `password` VARCHAR(40) NOT NULL,
+    `active` BOOLEAN NOT NULL DEFAULT true,
+    PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1;
+
+CREATE TABLE `group` (
+    `id` serial NOT NULL,
+    `groupname` VARCHAR(40) NOT NULL,
+    `parent_group` INTEGER,
+    PRIMARY KEY (`id`   )
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1;
+
+CREATE TABLE `membership` (
+    `id` serial NOT NULL,
+    `group_id` INTEGER,
+    `user_id` INTEGER,
+    PRIMARY KEY(`id`),
+    UNIQUE(`group_id`, `user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE utf8_general_ci AUTO_INCREMENT=1;

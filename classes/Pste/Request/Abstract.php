@@ -6,6 +6,7 @@ abstract class Pste_Request_Abstract
     protected $_get;
     protected $_request;
     protected $_cookie;
+    protected $_session;
     
     public final function __construct() {
         $this->_init();
@@ -51,6 +52,9 @@ abstract class Pste_Request_Abstract
                 $data = $this->_get;
                 break;
             case 'COOKIE':
+                $data = $this->_cookie;
+                break;
+            case 'SESSION':
                 $data = $this->_cookie;
                 break;
             case 'REQUEST':

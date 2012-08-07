@@ -6,5 +6,6 @@ class Pste_Request_Http extends Pste_Request_Abstract
        $this->_get = $_GET;
        $this->_request = $_REQUEST;
        $this->_cookie = $_COOKIE;
+       $this->_session = isset($_SESSION) ? $_SESSION : array(); 
     }
 }

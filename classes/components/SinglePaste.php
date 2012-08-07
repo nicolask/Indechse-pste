@@ -86,7 +86,6 @@ class SinglePaste extends Pste_View
             }
 
             $paste['codefmt'] = $geshi->parse_code();
-            error_log("paste: ".$paste['codefmt']);
             $paste['codecss'] = $geshi->get_stylesheet();
 
             // Save it!

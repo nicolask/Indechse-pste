@@ -94,7 +94,12 @@ class DB
         $stmt = $this->_conn->prepare($sql);
         $stmt->execute($args);
         
-        $id = $this->_conn->lastInsertId();
+        if ($this->_driver) {
+            $sequence_name = 'paste_pid_seq';
+        } else {
+            $sequence_name = null;
+        }
+        $id = $this->_conn->lastInsertId($sequence_name);
         return $id;
     }
 

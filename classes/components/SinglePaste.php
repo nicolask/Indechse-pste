@@ -46,7 +46,7 @@ class SinglePaste extends Pste_View
         $expires = ((is_null($post['expires'])) ? "Never Expires" : ("Expires on " . date("F D jS g:i A", strtotime($post['expires']))));
         $paste['posttitle'] = "Posted as {$post['poster']} on {$post['postdate']} - {$expires}";
 
-
+        $paste['editcode'] = $paste['code'];
 
 
         // Preprocess
@@ -64,11 +64,15 @@ class SinglePaste extends Pste_View
             }
             $paste['editcode'] = rtrim($post['editcode']);
         }
+        
+        $requestedFormat = $this->request->getParam('udf');
+        $format = $requestedFormat ? $requestedFormat : $post['format'];
+        
         // Get formatted version of code
-        if (strlen($post['codefmt']) > 0) {
+        if (0 && strlen($post['codefmt']) > 0 && $format == $post['format']) {
             $paste['codefmt'] = $post['codefmt'];
         } else {
-            $geshi = new GeSHi($paste['editcode'], $post['format']);
+            $geshi = new GeSHi($paste['editcode'], $format);
 
             $geshi->enable_classes();
             $geshi->set_header_type(GESHI_HEADER_DIV);
@@ -82,6 +86,7 @@ class SinglePaste extends Pste_View
             }
 
             $paste['codefmt'] = $geshi->parse_code();
+            error_log("paste: ".$paste['codefmt']);
             $paste['codecss'] = $geshi->get_stylesheet();
 
             // Save it!

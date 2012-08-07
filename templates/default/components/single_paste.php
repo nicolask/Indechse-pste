@@ -1,7 +1,10 @@
 <?php
 $this->headTitle($this->post['poster']);
+require_once('Pste/View/helpers/HeadStyle.php');
 ?>
 <div class="paste" id="paste">
+    <?php $this->headStyle($this->post['codecss'], 'codecss') ?>
+
     <h1>
         <?= $this->post['posttitle'] ?>
         <br/>

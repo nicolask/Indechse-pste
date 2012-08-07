@@ -61,7 +61,7 @@ require_once('Pste/View/helpers/HeadStyle.php');
                 <?= $content ?>
                 <br />
                 
-                <h1>&copy; <?php echo date("Y"); ?> - Powered by <a href="https://github.com/nicolask/indechse-paste">Indechse Paste</a> 0.1</h1>
+                <h1>&copy; <?php echo date("Y"); ?> - Powered by <a href="https://github.com/nicolask/indechse-pste">Indechse Paste</a> 0.1</h1>
                 <?= Pste_Component::add(new StaticPage(array('template' => 'components/credits.php'))); ?> 
             
         </div>

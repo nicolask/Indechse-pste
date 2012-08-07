@@ -16,7 +16,11 @@ class Pste_User
     
     public function find($username, $password) {
         $encPw = sha1($password);
-        $sql = 'SELECT id, username FROM "user" WHERE username = :username AND password = :password';
+        if ($this->_driver == 'pgsql') {
+            $sql = 'SELECT id, username FROM "user" WHERE username = :username AND password = :password';
+        } else {
+            $sql = 'SELECT id, username FROM `user` WHERE username = :username AND password = :password';
+        }
         $stmt = $this->_conn->prepare($sql);
         $stmt->bindParam(':username', $username);
         $stmt->bindParam(':password', $encPw);

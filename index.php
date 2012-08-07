@@ -115,14 +115,6 @@ try {
         $page['posttitle'] = 'New posting';
     }
 
-    if ($page['current_format'] != 'text') {
-        $geshiformats = $config->get('geshiformats');
-        // Give the page a title which features the syntax used.
-        $page['title'] = $geshiformats[$page['current_format']] . " - " . $config->title;
-    } else {
-        $page['title'] = $config->title;
-    }
-
 // HTML page output.
     if ($request->hasParam('show')) {
         $content = Pste_Component::add(new SinglePaste(array('pid' => $request->getParam('show'), 'request' => $request)));

@@ -1,4 +1,4 @@
-<form name="editor" method="post" action="index.php">
+<form name="editor" method="post" action="index.php" autocomplete="off">
     <input type="hidden" name="parent_pid" value="<?php echo $this->post['pid'] ?>"/>
     <div class="paste" id="pasteform">
         <div id="fmt">Language: <select name="format">

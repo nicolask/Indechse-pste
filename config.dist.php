@@ -21,7 +21,7 @@ $CONF['driver'] = 'driver';
 // This should be the URL to your pastebin. eg: http://paste.info.tm/ or http://paste.info.tm/subdir/
 $CONF['url']='http://local.paste:8080/';// Make sure you end it with a forward slash! (/)
 
-// What is the name of the template you want to use (the folder as displayed in /templates/)
+// the name of the template you want to use (the folder as displayed in /templates/)
 $CONF['template']='default';
 
 // Site title (Appears in the <title></title> tags)
@@ -29,3 +29,7 @@ $CONF['title']='PASTE - The name says it all.';
 
 // Timezone
 $CONF['timezone']='Europe/Berlin';
+
+// very basic auth config
+// set to true, if only logged in users shall see the pastes
+$CONF['restrict_show'] = false;

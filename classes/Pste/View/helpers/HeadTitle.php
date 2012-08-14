@@ -13,12 +13,12 @@ class Pste_View_Helper_HeadTitle
         }
     }
     
-    public function headTitle($title) {
-        $numArgs = count($title);
+    public function headTitle($args) {
+        $numArgs = count($args);
         if ($numArgs == 1) {
-            $this->setTitle($title[0], 'append');
+            $this->setTitle($args[0], 'append');
         } else if ($numArgs == 2) {
-            $this->setTitle($title[0], $title[1]);
+            $this->setTitle($args[0], $args[1]);
         }
     }
     

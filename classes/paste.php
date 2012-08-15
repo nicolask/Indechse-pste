@@ -118,7 +118,7 @@ class Pastebin
         $post["expiry"] = $this->_cleanExpiry($post["expiry"]);
 
         // Set/clear the persistName cookie.
-        if ($post["remember"]) {
+        if (isset($post['remember']) && $post["remember"]) {
             $value = $post["poster"] . '#' . $post["format"] . '#' . $post['expiry'];
 
             // Set cookie if not set.
@@ -133,7 +133,7 @@ class Pastebin
         }
 
         if (strlen($post['code2'])) {
-            $poster = preg_replace('/[^A-Za-z0-9_ \-]/', '', $post['poster']);
+            //$poster = preg_replace('/[^A-Za-z0-9_ \-]/', '', $post['poster']);
             $poster = $post['poster'];
             if (strlen($poster) == 0)
                 $poster = 'Anonymous';
@@ -165,7 +165,6 @@ class Pastebin
 
     function getPasteURL($id)
     {
-        global $CONF;
         return sprintf($this->conf['url_format'], $id);
     }
 
@@ -242,7 +241,6 @@ class Pastebin
             $days = floor($age / (3600 * 24));
             $hours = floor($age / 3600);
             $minutes = floor($age / 60);
-            $seconds = $age;
 
             if ($days > 1)
                 $age = "$days days ago";
@@ -252,8 +250,6 @@ class Pastebin
                 $age = "$minutes minute" . (($minutes > 1) ? "s" : "") . " ago";
             else
                 $age = "< 1 min ago";
-
-            $url = $this->getPasteURL($post['pid']);
 
             $posts[$idx]['agefmt'] = $age;
             $posts[$idx]['url'] = $this->getPasteURL($post['pid']);
@@ -276,10 +272,11 @@ class Pastebin
 
                 $parent = $this->db->getPaste($parent_pid);
                 if ($parent) {
+                    $route = Pste_Registry::getInstance()->route;
                     $post['parent_poster'] = $parent['poster'];
                     $post['parent_url'] = $this->getPasteUrl($parent_pid);
                     $post['parent_postdate'] = $parent['postdate'];
-                    $post['parent_diffurl'] = $this->conf['diff_url'] . "$pid";
+                    $post['parent_diffurl'] = $route->url($pid);
                 }
             }
 

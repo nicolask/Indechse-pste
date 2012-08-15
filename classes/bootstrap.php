@@ -31,9 +31,9 @@ set_include_path(LIB_PATH.PATH_SEPARATOR
 
 // Include the configration file
 require_once('Pste/Database.php');
+require_once('Pste/Route.php');
 require_once('default_config.php');
 require_once(APP_PATH.'/config.php');
-
 
 //path for the pastebin => for http:/domain/pastebin/
 $CONF['pastebin']='';
@@ -58,6 +58,7 @@ require_once 'Pste/Registry.php';
 require_once 'Pste/Config.php';
 require_once('Pste/Component.php');
 require_once('Pste/View/helpers/HeadTitle.php');
+require_once('Pste/View/helpers/Route.php');
 
 $ht = new Pste_View_Helper_HeadTitle();
 $ht->setTitle('Pste', 'replace');
@@ -69,6 +70,10 @@ $ht->setTitle('Pste', 'replace');
 function bootstrap($configuration_array) {
     $config = new Pste_Config($configuration_array);
     Pste_Registry::getInstance()->config = $config;
+    $route = new Pste_Route();
+    $route->setTemplatePath($config->template);
+    Pste_Registry::getInstance()->route = $route;
 }
 
 bootstrap($CONF);
+

@@ -96,7 +96,6 @@ class Pste_View {
     {
         $classname = 'Pste_View_Helper_'.ucfirst($name);
         $helper = new $classname();
-        $helper->$name($arguments);
-        return $helper;
+        return $helper->$name($arguments);
     }
 }

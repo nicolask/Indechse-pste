@@ -18,6 +18,8 @@ class Pste_View_Helper_HeadStyle
         } else if ($numArgs == 2) {
             $this->addStyle($args[0], $args[1]);
         }
+        
+        return $this;
     }
     
     public function __toString()

@@ -20,6 +20,8 @@ class Pste_View_Helper_HeadTitle
         } else if ($numArgs == 2) {
             $this->setTitle($args[0], $args[1]);
         }
+        
+        return $this;
     }
     
     public function __toString()

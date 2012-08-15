@@ -19,6 +19,7 @@ require_once('classes/bootstrap.php');
 
 date_default_timezone_set($CONF['timezone']);
 error_reporting(-1);
+ini_set('display_errors', '1');
 
 require_once('classes/geshi/geshi.php');
 require_once('classes/diff.php');
@@ -27,6 +28,8 @@ require_once('classes/paste.php');
 require_once('Pste/Request.php');
 require_once('Pste/Auth.php');
 require_once('Pste/User.php');
+require_once 'Pste/View.php';
+require_once 'Pste/Layout.php';
 
 require_once('components/RecentItems.php');
 require_once('components/SinglePaste.php');
@@ -122,11 +125,18 @@ try {
         $content = Pste_Component::add(new PasteArchive(array('page' => $request->getParam('page'), 'request' => $request)));
     } else if ($request->hasParam('submit', 'GET')) {
         $content = Pste_Component::add(new PasteForm(array('request' => $request)));
+    } else if ($request->hasParam('info', 'GET') && Pste_Registry::getInstance()->authenticated) {
+        phpinfo();die();
     } else {
         $content = Pste_Component::add(new StaticPage(array('template' => 'components/frontpage.php', 'request' => $request)));
     }
+    
+    $layout = new Pste_Layout(array('request' => $request));
+    $layout->setContent($content);
+    $layout->setTemplate('theme.php');
+    
     ob_start();
-    include('templates/' . $config->template . '/theme.php');
+    echo $layout->render();
     ob_end_flush();
 } catch (Exception $ex) {
     header('Content-type: text/plain');

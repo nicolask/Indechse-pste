@@ -54,6 +54,8 @@ switch($CONF['driver']){
         break;
 }
 
+Pste_Database::getInstance()->getConnection()->exec("SET NAMES 'utf8'");
+
 require_once 'Pste/Registry.php';
 require_once 'Pste/Config.php';
 require_once('Pste/Component.php');

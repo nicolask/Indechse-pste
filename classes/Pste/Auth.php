@@ -45,7 +45,7 @@ class Pste_Auth
         $username = $this->_request->getParam('username', '');
         $password = $this->_request->getParam('password', '');
         
-        $user = new Pste_User();
+        $user = new User();
         $this->_user = $user;
         $ok = $user->find($username, $password);
         if ($ok) {
@@ -62,7 +62,7 @@ class Pste_Auth
             return false;
         }
         
-        $user = new Pste_User();
+        $user = new User();
         $user->setFromArray($_SESSION['user']);
         $this->_user = $user;
         return true;

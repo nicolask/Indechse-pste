@@ -17,7 +17,7 @@ class PasteForm extends Pste_View
             'posted' => null,
             'code' => '',
             'parent_pid' => null,
-            'format' => 'text',
+            'format' => $conf->default_highlighter,
             'codefmt' => '',
             'expiry_flag' => 'f',
             'codecss' => null,

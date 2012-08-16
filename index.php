@@ -27,7 +27,7 @@ require_once('classes/paste.php');
 
 require_once('Pste/Request.php');
 require_once('Pste/Auth.php');
-require_once('Pste/User.php');
+require_once('models/User.php');
 require_once 'Pste/View.php';
 require_once 'Pste/Layout.php';
 

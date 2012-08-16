@@ -23,4 +23,6 @@ Indechse_Database::getInstance()->createConnection(
         $toolConfig['database']['database'], 
         $toolConfig['database']['user'], 
         $toolConfig['database']['password']
-    );  
+    );
+
+Indechse_Database::getInstance()->getConnection()->exec("SET NAMES 'utf8'");

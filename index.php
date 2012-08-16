@@ -43,7 +43,7 @@ $config = Pste_Registry::getInstance()->config;
 
 try {
     // authentication
-    $auth = new Pste_Auth($request);
+    $auth = new \Pste\Auth($request);
     if (!$auth->isAuthenticated()) {
         Pste_Registry::getInstance()->authenticated = false;
     } else {

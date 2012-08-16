@@ -4,8 +4,10 @@
  *
  * @author Nicolas Krueger <krueger@white-paper-media.de>
  */
+namespace Pste\Db\Pgsql;
+
 include_once('Pste/Db/User.php');
-class Pste_Db_Pgsql_User extends Pste_Db_User
+class User extends \Pste\Db\User
 {
     
 }

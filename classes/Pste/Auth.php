@@ -1,5 +1,7 @@
 <?php
-class Pste_Auth
+namespace Pste;
+
+class Auth
 {
     /**
      *
@@ -13,9 +15,9 @@ class Pste_Auth
     
     /**
      *
-     * @param Pste_Request_Abstract $request 
+     * @param \Pste_Request_Abstract $request 
      */
-    public function __construct(Pste_Request_Abstract $request) {
+    public function __construct(\Pste_Request_Abstract $request) {
         $this->_request = $request;
     }
     
@@ -45,7 +47,7 @@ class Pste_Auth
         $username = $this->_request->getParam('username', '');
         $password = $this->_request->getParam('password', '');
         
-        $user = new Pste\Models\User();
+        $user = new \Pste\Models\User();
         $this->_user = $user;
         $ok = $user->find($username, $password);
         if ($ok) {
@@ -62,7 +64,7 @@ class Pste_Auth
             return false;
         }
         
-        $user = new Pste\Models\User();
+        $user = new \Pste\Models\User();
         $user->setFromArray($_SESSION['user']);
         $this->_user = $user;
         return true;

@@ -7,7 +7,7 @@ class User
     
     /**
      *
-     * @var Pste_Db_User 
+     * @var \Pste\Db\User 
      */
     protected $_stmtBuilder;
     protected $_id;
@@ -24,17 +24,8 @@ class User
     }
     
     protected function _initStatementBuilder() {
-        switch($this->_conn->getAttribute(\PDO::ATTR_DRIVER_NAME)) {
-            case 'pgsql':
-                include_once('Pste/Db/Pgsql/User.php');
-                $this->_stmtBuilder = new \Pste_Db_Pgsql_User();
-                break;
-            default:
-            case 'mysql':
-                include_once('Pste/Db/Mysql/User.php');
-                $this->_stmtBuilder = new \Pste_Db_Mysql_User();
-                break;
-        }
+        require_once('Pste/Db/User.php');
+        $this->_stmtBuilder = \Pste\Db\User::getBuilder($this->_conn);
     }
     
     public function find($username, $password) {
@@ -46,7 +37,7 @@ class User
         $result = $stmt->execute();
         
         if ($result) {
-            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            $data = $stmt->fetch(\PDO::FETCH_ASSOC);
             
             if (!$data) return false;
             

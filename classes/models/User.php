@@ -1,4 +1,6 @@
 <?php
+namespace Pste\Models;
+
 class User
 {
     protected $_conn;
@@ -13,7 +15,7 @@ class User
     protected $_profile = null;
     
     public function __construct($id=null) {
-        $this->_conn = Pste_Database::getInstance()->getConnection();
+        $this->_conn = \Pste_Database::getInstance()->getConnection();
         $this->_initStatementBuilder();
         if ($id) {
             $this->_id = $id;
@@ -22,15 +24,15 @@ class User
     }
     
     protected function _initStatementBuilder() {
-        switch($this->_conn->getAttribute(PDO::ATTR_DRIVER_NAME)) {
+        switch($this->_conn->getAttribute(\PDO::ATTR_DRIVER_NAME)) {
             case 'pgsql':
                 include_once('Pste/Db/Pgsql/User.php');
-                $this->_stmtBuilder = new Pste_Db_Pgsql_User();
+                $this->_stmtBuilder = new \Pste_Db_Pgsql_User();
                 break;
             default:
             case 'mysql':
                 include_once('Pste/Db/Mysql/User.php');
-                $this->_stmtBuilder = new Pste_Db_Mysql_User();
+                $this->_stmtBuilder = new \Pste_Db_Mysql_User();
                 break;
         }
     }

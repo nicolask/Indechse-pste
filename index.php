@@ -42,6 +42,7 @@ try {
     // Process new posting
     $errors = array();
     if ($request->hasParam('paste')) { /* Process posting and redirect */
+        $pastebin = new Pastebin($CONF);
         $id = $pastebin->doPost($_POST);
         if ($id) {
             $pastebin->redirectToPost($id);

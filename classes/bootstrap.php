@@ -30,10 +30,37 @@ set_include_path(LIB_PATH.PATH_SEPARATOR
                 .get_include_path());
 
 // Include the configration file
-require_once('Pste/Database.php');
-require_once('Pste/Route.php');
+
 require_once('default_config.php');
 require_once(APP_PATH.'/config.php');
+
+require_once('Pste/Database.php');
+require_once('Pste/Route.php');
+require_once('Pste/Request.php');
+require_once('Pste/Registry.php');
+require_once('Pste/Config.php');
+require_once('Pste/View.php');
+require_once('Pste/Component.php');
+require_once('Pste/Layout.php');
+require_once('Pste/Auth.php');
+
+require_once('classes/geshi/geshi.php');
+require_once('classes/diff.php');
+require_once('classes/paste.php');
+
+require_once('models/User.php');
+
+require_once('Pste/View/helpers/HeadTitle.php');
+require_once('Pste/View/helpers/Route.php');
+
+require_once('components/RecentItems.php');
+require_once('components/StaticPage.php');
+require_once('components/RecentItems.php');
+require_once('components/PasteForm.php');
+require_once('components/UserLogin.php');
+
+
+
 
 //path for the pastebin => for http:/domain/pastebin/
 $CONF['pastebin']='';
@@ -56,11 +83,7 @@ switch($CONF['driver']){
 
 Pste_Database::getInstance()->getConnection()->exec("SET NAMES 'utf8'");
 
-require_once('Pste/Registry.php');
-require_once('Pste/Config.php');
-require_once('Pste/Component.php');
-require_once('Pste/View/helpers/HeadTitle.php');
-require_once('Pste/View/helpers/Route.php');
+
 
 $ht = new Pste_View_Helper_HeadTitle();
 $ht->setTitle('Pste', 'replace');

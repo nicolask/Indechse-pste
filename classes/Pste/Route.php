@@ -50,8 +50,8 @@ class Pste_Route
         $document_root = $_SERVER['DOCUMENT_ROOT'];
         $script_filename = $_SERVER['SCRIPT_FILENAME'];
         
-        $dr = split(DIRECTORY_SEPARATOR, $document_root);
-        $sf = split(DIRECTORY_SEPARATOR, $script_filename);
+        $dr = explode('/', $document_root);
+        $sf = explode('/', $script_filename);
         
         array_pop($sf);
         $path = array_diff($sf, $dr);

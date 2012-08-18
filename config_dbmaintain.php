@@ -1,10 +1,8 @@
 <?php
 /**
- * copy this file to config.php
- * customize this config file to your projects needs 
+ * customized configuration for DbMaintain
  * 
- * just be aware that you initialize Indechse_Database with your 
- * database credentials at the end
+ * no need to change this
  */
 
 include APP_PATH.'/config.php';

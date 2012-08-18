@@ -48,7 +48,11 @@ $CONF['highlight_prefix']='@@';
 // Default syntax highlight for pastes.
 $CONF['default_highlighter']='text';
 
-$CONF['itemsPerPage'] = 3;
+// pastes per page in archive
+$CONF['itemsPerPage'] = 20;
+
+// number of pastes in recent list
+$CONF['list'] = 8;
 
 // basic restrictions, if true the user needs to login to see pastes
 $CONF['restrict_show'] = false;

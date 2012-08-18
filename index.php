@@ -1,7 +1,9 @@
 <?php
-
-/*
- * $ID PROJECT: Paste - index.php, v1 EcKstasy - 17/03/2010/06:29 GMT+1 (dd/mm/yy/time) 
+/**
+ * Project: Indechse Pste
+ * 
+ * Copyright (C) 2012 Nicolas Krueger <nicolas.krueger@gmail.com>
+ * Copyright (C) 2010 EcKstasy <eckstasy@escriptirc.com> 
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License

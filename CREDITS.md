@@ -1,5 +1,5 @@
 # DESCRIPTION OF PROJECT:
-Indechse-paste is a fork from phpaste (https://bitbucket.org/eckstasy/paste) 
+Indechse-pste is a fork from phpaste (https://bitbucket.org/eckstasy/paste) 
 which is a fork from the original pastebin.com script
 
 ## CREDITS:

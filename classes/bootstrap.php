@@ -50,6 +50,7 @@ require_once('classes/diff.php');
 require_once('classes/paste.php');
 
 require_once('models/User.php');
+require_once('models/Paste.php');
 
 require_once('Pste/View/helpers/HeadTitle.php');
 require_once('Pste/View/helpers/Route.php');

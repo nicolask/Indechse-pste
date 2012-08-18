@@ -25,9 +25,7 @@ class PasteForm extends Pste_View
     }
     
     protected function _initData() {
-        $db = new DB();
         $conf = Pste_Registry::getInstance()->config;
-        
         
         $emptyPost = array(
             'pid' => null,
@@ -48,8 +46,9 @@ class PasteForm extends Pste_View
         } else {
 
             $pid = $this->request->getParam('show');
-
-            $post = $db->getPaste($pid);
+            $paste = new \Pste\Models\Paste($pid);
+            
+            $post = $paste->getContent();
             if (!$post) {
                 return $this->forward(new StaticPage(array('template' => 'components/paste_invalid.php')));
             }

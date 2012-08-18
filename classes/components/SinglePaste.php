@@ -33,12 +33,11 @@ class SinglePaste extends Pste_View
      */
     public function getPaste()
     {
-        $db = new DB();
         $conf = Pste_Registry::getInstance()->config;
-
         $pid = $this->pid;
-
-        $post = $db->getPaste($pid);
+        $paste = new \Pste\Models\Paste($pid);
+        
+        $post = $paste->getContent();
         if (!$post) {
             return $this->forward(new StaticPage(array('template' => 'components/paste_invalid.php')));
         }
@@ -105,8 +104,6 @@ class SinglePaste extends Pste_View
             $paste['codefmt'] = $geshi->parse_code();
             $paste['codecss'] = $geshi->get_stylesheet();
 
-            // Save it!
-            //$db->saveFormatting($pid, $post['codefmt'], $post['codecss']);
         }
         $paste['pid'] = $pid;
         $paste['downloadurl'] = $conf->url.$post['pid'];

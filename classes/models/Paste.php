@@ -20,4 +20,25 @@ namespace Pste\Models;
 
 class Paste {
     
+    private $_id;
+    
+    public function __construct($id) {
+        $this->_id = $id;
+    }
+    
+    public function getContent() {
+        if (null === $this->_id) {
+            return null;
+        }
+        
+        $db = new \DB();
+        
+        $post = $db->getPaste($this->_id);
+        
+        if (empty($post['format']) ) {
+            $post['format'] = 'text';
+        }
+        
+        return $post;
+    }
 }

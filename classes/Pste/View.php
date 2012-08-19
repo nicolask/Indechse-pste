@@ -37,7 +37,7 @@ class View {
     public function __construct($params=array())
     {
         $this->_initParams($params);
-        $this->_config = \Pste_Registry::getInstance()->config;
+        $this->_config = \Pste\Registry::getInstance()->config;
         $this->_init();
     }
     

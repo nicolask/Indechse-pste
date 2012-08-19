@@ -31,7 +31,7 @@ class PasteArchive extends \Pste\View
     protected function getPosts()
     {
         $db = new \DB();
-        $config = \Pste_Registry::getInstance()->config;
+        $config = \Pste\Registry::getInstance()->config;
         
         $pastes = $db->getAllPastes($this->request->getParam('page', 1), $config->itemsPerPage);
         

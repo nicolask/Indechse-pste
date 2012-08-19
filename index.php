@@ -23,17 +23,17 @@ date_default_timezone_set($CONF['timezone']);
 error_reporting(-1);
 ini_set('display_errors', '1');
 
-$request = Pste_Request::getInstance();
-$config = Pste_Registry::getInstance()->config;
+$request = \Pste\Request::getInstance();
+$config = \Pste\Registry::getInstance()->config;
 
 try {
     // authentication
     $auth = new \Pste\Auth($request);
     if (!$auth->isAuthenticated()) {
-        Pste_Registry::getInstance()->authenticated = false;
+        \Pste\Registry::getInstance()->authenticated = false;
     } else {
-        Pste_Registry::getInstance()->authenticated = true;
-        Pste_Registry::getInstance()->user = $auth->getUser();
+        \Pste\Registry::getInstance()->authenticated = true;
+        \Pste\Registry::getInstance()->user = $auth->getUser();
     }
     
     /// Clean up older posts 
@@ -50,21 +50,20 @@ try {
         }
     }
     
-    if ($request->hasParam('show') && (($config->restrict_show && Pste_Registry::getInstance()->authenticated) || !$config->restrict_show)) {
-//        require_once('components/SinglePaste.php');
-        $content = Pste_Component::add(new \Pste\Component\SinglePaste(array('pid' => $request->getParam('show'), 'request' => $request)));
+    if ($request->hasParam('show') && (($config->restrict_show && \Pste\Registry::getInstance()->authenticated) || !$config->restrict_show)) {
+        $content = \Pste\Component::add(new \Pste\Component\SinglePaste(array('pid' => $request->getParam('show'), 'request' => $request)));
     } else if ($request->hasParam('archive')) {
         require_once('components/PasteArchive.php');
-        $content = Pste_Component::add(new \Pste\Component\PasteArchive(array('page' => $request->getParam('page'), 'request' => $request)));
+        $content = \Pste\Component::add(new \Pste\Component\PasteArchive(array('page' => $request->getParam('page'), 'request' => $request)));
     } else if ($request->hasParam('submit', 'GET')) {
-        $content = Pste_Component::add(new \Pste\Component\PasteForm(array('request' => $request)));
-    } else if ($request->hasParam('info', 'GET') && Pste_Registry::getInstance()->authenticated) {
+        $content = \Pste\Component::add(new \Pste\Component\PasteForm(array('request' => $request)));
+    } else if ($request->hasParam('info', 'GET') && \Pste\Registry::getInstance()->authenticated) {
         phpinfo();die();
     } else {
-        $content = Pste_Component::add(new \Pste\Component\StaticPage(array('template' => 'components/frontpage.php', 'request' => $request)));
+        $content = \Pste\Component::add(new \Pste\Component\StaticPage(array('template' => 'components/frontpage.php', 'request' => $request)));
     }
     
-    $layout = new Pste_Layout(array('request' => $request));
+    $layout = new \Pste\Layout(array('request' => $request));
     $layout->setContent($content);
     $layout->setTemplate('theme.php');
     

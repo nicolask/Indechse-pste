@@ -27,7 +27,7 @@ class RecentItems extends \Pste\View {
     
     public function getRecentItems() {
         
-        $config = \Pste_Registry::getInstance()->config;
+        $config = \Pste\Registry::getInstance()->config;
         
         $db = new \DB();
         

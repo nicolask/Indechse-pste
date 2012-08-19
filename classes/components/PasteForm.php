@@ -27,7 +27,7 @@ class PasteForm extends \Pste\View
     }
     
     protected function _initData() {
-        $conf = \Pste_Registry::getInstance()->config;
+        $conf = \Pste\Registry::getInstance()->config;
         
         $emptyPost = array(
             'pid' => null,

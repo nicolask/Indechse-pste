@@ -22,7 +22,10 @@
  *
  * @author Nicolas Krueger <krueger@white-paper-media.de>
  */
-class Pste_Layout extends \Pste\View
+
+namespace Pste;
+
+class Layout extends View
 {
     public function setContent($content) {
         $this->content = $content;

@@ -17,7 +17,9 @@
  *
  */
 
-class Pste_Config {
+namespace Pste;
+
+class Config {
     
     private $_config = array();
     
@@ -27,7 +29,7 @@ class Pste_Config {
     
     public function __get($name) {
         if (array_key_exists($name, $this->_config) && is_array($this->_config[$name])) {
-            return new Pste_Config($name);
+            return new Config($name);
         }
         
         return $this->_config[$name];

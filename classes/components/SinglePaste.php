@@ -35,7 +35,7 @@ class SinglePaste extends \Pste\View
      */
     public function getPaste()
     {
-        $conf = \Pste_Registry::getInstance()->config;
+        $conf = \Pste\Registry::getInstance()->config;
         $pid = $this->pid;
         $paste = new \Pste\Model\Paste($pid);
         

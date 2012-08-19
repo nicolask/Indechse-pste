@@ -17,7 +17,9 @@
  *
  */
 
-class Pste_Registry {
+namespace Pste;
+
+class Registry {
     
     private $_items = array();
     
@@ -28,8 +30,8 @@ class Pste_Registry {
     }
     
     public static function getInstance() {
-        if (!(self::$_instance instanceof Pste_Registry)) {
-            self::$_instance = new Pste_Registry();
+        if (!(self::$_instance instanceof Registry)) {
+            self::$_instance = new Registry();
         }
         
         return self::$_instance;

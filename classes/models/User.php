@@ -33,7 +33,7 @@ class User
     protected $_profile = null;
     
     public function __construct($id=null) {
-        $this->_conn = \Pste_Database::getInstance()->getConnection();
+        $this->_conn = \Pste\Database::getInstance()->getConnection();
         $this->_initStatementBuilder();
         if ($id) {
             $this->_id = $id;

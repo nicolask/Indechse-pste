@@ -17,7 +17,9 @@
  *
  */
 
-abstract class Pste_Request_Abstract
+namespace Pste\Request;
+
+abstract class RequestAbstract
 {
     
     protected $_post;

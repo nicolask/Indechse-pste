@@ -17,7 +17,9 @@
  *
  */
 
-class Pste_Request_Http extends Pste_Request_Abstract
+namespace Pste\Request;
+
+class Http extends \Pste\Request\RequestAbstract
 {
     protected function _init() {
        $this->_post = $_POST;

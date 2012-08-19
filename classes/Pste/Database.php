@@ -17,7 +17,9 @@
  *
  */
 
-class Pste_Database 
+namespace Pste;
+
+class Database 
 {
     private static $_instance;
     
@@ -29,11 +31,11 @@ class Pste_Database
     
     /**
      *
-     * @return Pste_Database 
+     * @return Pste\Database 
      */
     public static function getInstance() {
-        if (!(self::$_instance instanceof Pste_Database)) {
-            self::$_instance = new Pste_Database();
+        if (!(self::$_instance instanceof \Pste\Database)) {
+            self::$_instance = new \Pste\Database();
         }
         
         return self::$_instance;
@@ -41,20 +43,20 @@ class Pste_Database
     
     /**
      *
-     * @param PDO $connection
+     * @param \PDO $connection
      * @param string $name 
      */
-    public function setConnection(PDO $connection, $name='default') {
+    public function setConnection(\PDO $connection, $name='default') {
         $this->_conn[$name] = $connection;
     }
     
     /**
      *
      * @param string $name
-     * @return PDO
+     * @return \PDO
      */
     public function getConnection($name='default') {
-        if ($this->_conn[$name] instanceof PDO) {
+        if ($this->_conn[$name] instanceof \PDO) {
             return $this->_conn[$name];
         }
         
@@ -66,15 +68,15 @@ class Pste_Database
             case 'pgsql':
             case 'postgres':
             case 'postgresql':
-                $this->_conn[$name] = new PDO("pgsql:host={$host};dbname={$dbname};user={$username};password={$password}");
+                $this->_conn[$name] = new \PDO("pgsql:host={$host};dbname={$dbname};user={$username};password={$password}");
                 break;
             case 'mysql':
-                $this->_conn[$name] = new PDO("mysql:host={$host};dbname={$dbname}",$username, $password);
+                $this->_conn[$name] = new \PDO("mysql:host={$host};dbname={$dbname}",$username, $password);
                 break;
             default:
                 throw new Exception(sprintf("unsupported database driver '%s'", $driver));
         }
-        $this->_conn[$name]->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->_conn[$name]->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
         
     }
 }

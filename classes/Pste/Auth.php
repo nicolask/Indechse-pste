@@ -33,9 +33,9 @@ class Auth
     
     /**
      *
-     * @param \Pste_Request_Abstract $request 
+     * @param \Pste\Request\RequestAbstract $request 
      */
-    public function __construct(\Pste_Request_Abstract $request) {
+    public function __construct(\Pste\Request\RequestAbstract $request) {
         $this->_request = $request;
     }
     

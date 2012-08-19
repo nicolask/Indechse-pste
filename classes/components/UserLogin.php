@@ -26,10 +26,10 @@ class UserLogin extends \Pste\View {
     }
     
     protected function getUserdata() {
-        $user = \Pste_Registry::getInstance()->user;
+        $user = \Pste\Registry::getInstance()->user;
         
         $this->authenticated = false;
-        if (\Pste_Registry::getInstance()->authenticated) {
+        if (\Pste\Registry::getInstance()->authenticated) {
             $this->authenticated = true;
             $this->user = $user;
         }

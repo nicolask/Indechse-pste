@@ -22,7 +22,10 @@
  *
  * @author Nicolas Krueger <krueger@white-paper-media.de>
  */
-class Pste_Route
+
+namespace Pste;
+
+class Route
 {
     private $base_path = '';
     private $template_path = '';

@@ -17,7 +17,9 @@
  *
  */
 
-class Pste_Component 
+namespace Pste;
+
+class Component 
 {
    public static function add(\Pste\View $view, $params=array()) {
        return $view->render();

@@ -37,15 +37,6 @@ set_include_path(LIB_PATH.PATH_SEPARATOR
 require_once('default_config.php');
 require_once(APP_PATH.'/config.php');
 
-require_once('Pste/Database.php');
-require_once('Pste/Route.php');
-require_once('Pste/Request.php');
-require_once('Pste/Registry.php');
-require_once('Pste/Config.php');
-require_once('Pste/View.php');
-require_once('Pste/Component.php');
-require_once('Pste/Layout.php');
-
 require_once('classes/geshi/geshi.php');
 require_once('classes/diff.php');
 require_once('classes/paste.php');
@@ -53,7 +44,7 @@ require_once('classes/paste.php');
 require_once('Pste/View/helpers/HeadTitle.php');
 require_once('Pste/View/helpers/Route.php');
 
-Pste_Registry::getInstance()->starttime = $starttime;
+\Pste\Registry::getInstance()->starttime = $starttime;
 
 //path for the pastebin => for http:/domain/pastebin/
 $CONF['pastebin']='';
@@ -63,18 +54,18 @@ switch($CONF['driver']){
     case "postgresql":
     case "pgsql":
     case "postgres":
-        Pste_Database::getInstance()->createConnection('pgsql', 
+        \Pste\Database::getInstance()->createConnection('pgsql', 
                 $CONF["dbhost"], $CONF['dbname'], $CONF["dbuser"], $CONF["dbpass"]);
         require_once('classes/db.php');
         break;
     case "mysql":
-        Pste_Database::getInstance()->createConnection('mysql', 
+        \Pste\Database::getInstance()->createConnection('mysql', 
                 $CONF["dbhost"], $CONF['dbname'], $CONF["dbuser"], $CONF["dbpass"]);
         require_once('classes/db.php');
         break;
 }
 
-Pste_Database::getInstance()->getConnection()->exec("SET NAMES 'utf8'");
+\Pste\Database::getInstance()->getConnection()->exec("SET NAMES 'utf8'");
 
 $ht = new Pste_View_Helper_HeadTitle();
 $ht->setTitle('Pste', 'replace');
@@ -84,11 +75,11 @@ $ht->setTitle('Pste', 'replace');
  * scope 
  */
 function bootstrap($configuration_array) {
-    $config = new Pste_Config($configuration_array);
-    Pste_Registry::getInstance()->config = $config;
-    $route = new Pste_Route();
+    $config = new \Pste\Config($configuration_array);
+    \Pste\Registry::getInstance()->config = $config;
+    $route = new \Pste\Route();
     $route->setTemplatePath($config->template);
-    Pste_Registry::getInstance()->route = $route;
+    \Pste\Registry::getInstance()->route = $route;
 }
 
 function __autoload($class) {

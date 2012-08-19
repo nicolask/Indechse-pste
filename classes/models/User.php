@@ -42,7 +42,6 @@ class User
     }
     
     protected function _initStatementBuilder() {
-        require_once('Pste/Db/User.php');
         $this->_stmtBuilder = \Pste\Db\User::getBuilder($this->_conn);
     }
     

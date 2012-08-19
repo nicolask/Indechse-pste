@@ -112,6 +112,7 @@ class Pste_View {
     public function __call($name, $arguments)
     {
         $classname = 'Pste_View_Helper_'.ucfirst($name);
+        require_once('Pste/View/helpers/'.ucfirst($name).'.php');
         $helper = new $classname();
         return $helper->$name($arguments);
     }

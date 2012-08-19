@@ -24,7 +24,6 @@
  */
 namespace Pste\Db\Mysql;
 
-include_once('Pste/Db/User.php');
 class User extends \Pste\Db\User
 {
     public function find() {

@@ -41,12 +41,10 @@ abstract class User
         
         switch($driver_name) {
             case 'pgsql':
-                include_once('Pste/Db/Pgsql/User.php');
                 $stmtBuilder = new Pgsql\User();
                 break;
             default:
             case 'mysql':
-                include_once('Pste/Db/Mysql/User.php');
                 $stmtBuilder = new Mysql\User();
                 break;
         }

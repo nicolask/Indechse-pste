@@ -1,5 +1,4 @@
 <?php
-require_once('Pste/View/helpers/HeadStyle.php');
 $config = Pste_Registry::getInstance()->config;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"

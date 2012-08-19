@@ -1,6 +1,5 @@
 <?php
 $this->headTitle($this->post['poster']);
-require_once('Pste/View/helpers/HeadStyle.php');
 ?>
 <div class="paste" id="paste">
     <form name="language_switch" method="GET" action="">

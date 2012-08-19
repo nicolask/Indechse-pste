@@ -45,7 +45,6 @@ require_once('Pste/Config.php');
 require_once('Pste/View.php');
 require_once('Pste/Component.php');
 require_once('Pste/Layout.php');
-require_once('Pste/Auth.php');
 
 require_once('classes/geshi/geshi.php');
 require_once('classes/diff.php');
@@ -53,11 +52,6 @@ require_once('classes/paste.php');
 
 require_once('Pste/View/helpers/HeadTitle.php');
 require_once('Pste/View/helpers/Route.php');
-
-require_once('components/RecentItems.php');
-require_once('components/StaticPage.php');
-require_once('components/RecentItems.php');
-require_once('components/UserLogin.php');
 
 Pste_Registry::getInstance()->starttime = $starttime;
 
@@ -99,11 +93,18 @@ function bootstrap($configuration_array) {
 
 function __autoload($class) {
     $nsSplit = explode('\\', $class);
-    if ($nsSplit[0] == 'Pste') {
-        if ($nsSplit[1] == 'Component') {
-            require_once('components/'.$nsSplit[2].'.php');
-        } else if ($nsSplit[1] == 'Model') {
-            require_once('models/'.$nsSplit[2].'.php');
+    if (count($nsSplit) >= 2 && $nsSplit[0] == 'Pste') {
+        if (count($nsSplit) == 3) {
+            // some special rules for components and models
+            if ($nsSplit[1] == 'Component') {
+                require_once('components/'.$nsSplit[2].'.php');
+            } else if ($nsSplit[1] == 'Model') {
+                require_once('models/'.$nsSplit[2].'.php');
+            } else {
+                require_once(implode('/',$nsSplit).'.php');
+            }
+        } else {
+            require_once(implode('/',$nsSplit).'.php');
         }
     }
 }

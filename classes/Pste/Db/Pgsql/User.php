@@ -24,7 +24,6 @@
  */
 namespace Pste\Db\Pgsql;
 
-include_once('Pste/Db/User.php');
 class User extends \Pste\Db\User
 {
     

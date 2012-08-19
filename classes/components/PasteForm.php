@@ -17,7 +17,9 @@
  *
  */
 
-class PasteForm extends Pste_View
+namespace Pste\Component;
+
+class PasteForm extends \Pste_View
 {
     public function _init() {
         $this->setTemplate('components/paste_form.php');
@@ -25,7 +27,7 @@ class PasteForm extends Pste_View
     }
     
     protected function _initData() {
-        $conf = Pste_Registry::getInstance()->config;
+        $conf = \Pste_Registry::getInstance()->config;
         
         $emptyPost = array(
             'pid' => null,
@@ -46,13 +48,13 @@ class PasteForm extends Pste_View
         } else {
 
             $pid = $this->request->getParam('show');
-            $paste = new \Pste\Models\Paste($pid);
+            $paste = new \Pste\Model\Paste($pid);
             
             $post = $paste->getContent();
             if (!$post) {
                 return $this->forward(new StaticPage(array('template' => 'components/paste_invalid.php')));
             }
-
+            
             $postPass = $this->request->hasParam('thePassword') ? $this->request->getParam('thePassword') : null;
             $pass = $post['password'];
 

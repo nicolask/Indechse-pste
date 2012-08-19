@@ -17,7 +17,9 @@
  *
  */
 
-class PasteArchive extends Pste_View
+namespace Pste\Component;
+
+class PasteArchive extends \Pste_View
 {
 
     public function _init()
@@ -28,8 +30,8 @@ class PasteArchive extends Pste_View
 
     protected function getPosts()
     {
-        $db = new DB();
-        $config = Pste_Registry::getInstance()->config;
+        $db = new \DB();
+        $config = \Pste_Registry::getInstance()->config;
         
         $pastes = $db->getAllPastes($this->request->getParam('page', 1), $config->itemsPerPage);
         

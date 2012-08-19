@@ -17,9 +17,9 @@
  *
  */
 
-require_once 'Pste/View.php';
+namespace Pste\Component;
 
-class RecentItems extends Pste_View {
+class RecentItems extends \Pste_View {
     protected function _init() {
         $this->setTemplate('components/recent_items.php');
         $this->getRecentItems();
@@ -27,9 +27,9 @@ class RecentItems extends Pste_View {
     
     public function getRecentItems() {
         
-        $config = Pste_Registry::getInstance()->config;
+        $config = \Pste_Registry::getInstance()->config;
         
-        $db = new DB();
+        $db = new \DB();
         
         // Get raw db info.
         $posts = $db->getRecentPostSummary($config->list);

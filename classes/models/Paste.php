@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
  *
  */
-namespace Pste\Models;
+namespace Pste\Model;
 
 class Paste {
     
@@ -34,6 +34,10 @@ class Paste {
         $db = new \DB();
         
         $post = $db->getPaste($this->_id);
+        
+        if (!$post) {
+            return null;
+        }
         
         if (empty($post['format']) ) {
             $post['format'] = 'text';

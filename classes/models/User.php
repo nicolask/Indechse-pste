@@ -17,7 +17,7 @@
  *
  */
 
-namespace Pste\Models;
+namespace Pste\Model;
 
 class User
 {

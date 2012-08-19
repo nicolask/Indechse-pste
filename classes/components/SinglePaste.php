@@ -17,7 +17,9 @@
  *
  */
 
-class SinglePaste extends Pste_View
+namespace Pste\Component;
+
+class SinglePaste extends \Pste_View
 {
 
     public function _init()
@@ -33,9 +35,9 @@ class SinglePaste extends Pste_View
      */
     public function getPaste()
     {
-        $conf = Pste_Registry::getInstance()->config;
+        $conf = \Pste_Registry::getInstance()->config;
         $pid = $this->pid;
-        $paste = new \Pste\Models\Paste($pid);
+        $paste = new \Pste\Model\Paste($pid);
         
         $post = $paste->getContent();
         if (!$post) {
@@ -88,7 +90,7 @@ class SinglePaste extends Pste_View
         if (0 && strlen($post['codefmt']) > 0 && $format == $post['format']) {
             $paste['codefmt'] = $post['codefmt'];
         } else {
-            $geshi = new GeSHi($paste['editcode'], $format);
+            $geshi = new \GeSHi($paste['editcode'], $format);
 
             $geshi->enable_classes();
             $geshi->set_header_type(GESHI_HEADER_DIV);

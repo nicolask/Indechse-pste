@@ -19,6 +19,8 @@
  *
  */
  
+$starttime = microtime(true);
+
 $CONF=array();
 
 define('APP_PATH', realpath(dirname(__FILE__)."/.."));
@@ -49,20 +51,15 @@ require_once('classes/geshi/geshi.php');
 require_once('classes/diff.php');
 require_once('classes/paste.php');
 
-require_once('models/User.php');
-require_once('models/Paste.php');
-
 require_once('Pste/View/helpers/HeadTitle.php');
 require_once('Pste/View/helpers/Route.php');
 
 require_once('components/RecentItems.php');
 require_once('components/StaticPage.php');
 require_once('components/RecentItems.php');
-require_once('components/PasteForm.php');
 require_once('components/UserLogin.php');
 
-
-
+Pste_Registry::getInstance()->starttime = $starttime;
 
 //path for the pastebin => for http:/domain/pastebin/
 $CONF['pastebin']='';
@@ -85,8 +82,6 @@ switch($CONF['driver']){
 
 Pste_Database::getInstance()->getConnection()->exec("SET NAMES 'utf8'");
 
-
-
 $ht = new Pste_View_Helper_HeadTitle();
 $ht->setTitle('Pste', 'replace');
 
@@ -100,6 +95,17 @@ function bootstrap($configuration_array) {
     $route = new Pste_Route();
     $route->setTemplatePath($config->template);
     Pste_Registry::getInstance()->route = $route;
+}
+
+function __autoload($class) {
+    $nsSplit = explode('\\', $class);
+    if ($nsSplit[0] == 'Pste') {
+        if ($nsSplit[1] == 'Component') {
+            require_once('components/'.$nsSplit[2].'.php');
+        } else if ($nsSplit[1] == 'Model') {
+            require_once('models/'.$nsSplit[2].'.php');
+        }
+    }
 }
 
 bootstrap($CONF);

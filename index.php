@@ -51,17 +51,17 @@ try {
     }
     
     if ($request->hasParam('show') && (($config->restrict_show && Pste_Registry::getInstance()->authenticated) || !$config->restrict_show)) {
-        require_once('components/SinglePaste.php');
-        $content = Pste_Component::add(new SinglePaste(array('pid' => $request->getParam('show'), 'request' => $request)));
+//        require_once('components/SinglePaste.php');
+        $content = Pste_Component::add(new \Pste\Component\SinglePaste(array('pid' => $request->getParam('show'), 'request' => $request)));
     } else if ($request->hasParam('archive')) {
         require_once('components/PasteArchive.php');
-        $content = Pste_Component::add(new PasteArchive(array('page' => $request->getParam('page'), 'request' => $request)));
+        $content = Pste_Component::add(new \Pste\Component\PasteArchive(array('page' => $request->getParam('page'), 'request' => $request)));
     } else if ($request->hasParam('submit', 'GET')) {
-        $content = Pste_Component::add(new PasteForm(array('request' => $request)));
+        $content = Pste_Component::add(new \Pste\Component\PasteForm(array('request' => $request)));
     } else if ($request->hasParam('info', 'GET') && Pste_Registry::getInstance()->authenticated) {
         phpinfo();die();
     } else {
-        $content = Pste_Component::add(new StaticPage(array('template' => 'components/frontpage.php', 'request' => $request)));
+        $content = Pste_Component::add(new \Pste\Component\StaticPage(array('template' => 'components/frontpage.php', 'request' => $request)));
     }
     
     $layout = new Pste_Layout(array('request' => $request));

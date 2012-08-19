@@ -19,25 +19,24 @@ $config = Pste_Registry::getInstance()->config;
                 <img src="<?= $this->route()->templateRessourceUrl('/images/logo.png') ?>" alt="<?php echo $config->title ?>" title="<?php echo $config->title ?>" class="logo" />
             </a>
             <ul class="tabs">
-                <li><?= Pste_Component::add(new \UserLogin(array('request' => $this->request))) ?></li>
+                <li><?= Pste_Component::add(new \Pste\Component\UserLogin(array('request' => $this->request))) ?></li>
                 <li><a href="<?= $this->route()->url('?submit') ?>" title="Submit a new paste">Submit</a></li>
                 <li><a href="<?= $this->route()->url('?archive') ?>" title="List all public pastes">Archive</a></li>
             </ul>
         </div>
         <div id="menu">
-            <?= Pste_Component::add(new RecentItems()); ?>
-            
+            <?= Pste_Component::add(new \Pste\Component\RecentItems()); ?>
         </div>
         
-
         <div id="content"><br />
             <h1>Welcome! Here you can paste sources and general debugging text, 
                 You can even set yourself a password if you want to keep it just for yourself.</h1>
                 <?= $this->content ?>
                 <br />
                 
-                <h1>&copy; <?php echo date("Y"); ?> - Powered by <a href="https://github.com/nicolask/indechse-pste">Indechse Paste</a> 0.1</h1>
-                <?= Pste_Component::add(new StaticPage(array('template' => 'components/credits.php'))); ?> 
+                <h1>&copy; <?php echo date("Y"); ?> - Powered by <a href="https://github.com/nicolask/indechse-pste">Indechse Pste</a> 0.1 
+                    - rendered in <?= round(microtime(true) - Pste_Registry::getInstance()->starttime, 4)  ?></h1>
+                <?= Pste_Component::add(new \Pste\Component\StaticPage(array('template' => 'components/credits.php'))); ?> 
             
         </div>
     </body>

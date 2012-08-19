@@ -65,7 +65,7 @@ class Auth
         $username = $this->_request->getParam('username', '');
         $password = $this->_request->getParam('password', '');
         
-        $user = new \Pste\Models\User();
+        $user = new \Pste\Model\User();
         $this->_user = $user;
         $ok = $user->find($username, $password);
         if ($ok) {
@@ -82,7 +82,7 @@ class Auth
             return false;
         }
         
-        $user = new \Pste\Models\User();
+        $user = new \Pste\Model\User();
         $user->setFromArray($_SESSION['user']);
         $this->_user = $user;
         return true;

@@ -1,6 +1,25 @@
 <?php
+/**
+ * Copyright (C) 2012 Nicolas Krueger <nicolas.krueger@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ */
 
-class SinglePaste extends Pste_View
+namespace Pste\Component;
+
+class SinglePaste extends \Pste\View
 {
 
     public function _init()
@@ -16,12 +35,11 @@ class SinglePaste extends Pste_View
      */
     public function getPaste()
     {
-        $db = new DB();
-        $conf = Pste_Registry::getInstance()->config;
-
+        $conf = \Pste\Registry::getInstance()->config;
         $pid = $this->pid;
-
-        $post = $db->getPaste($pid);
+        $paste = new \Pste\Model\Paste($pid);
+        
+        $post = $paste->getContent();
         if (!$post) {
             return $this->forward(new StaticPage(array('template' => 'components/paste_invalid.php')));
         }
@@ -72,7 +90,7 @@ class SinglePaste extends Pste_View
         if (0 && strlen($post['codefmt']) > 0 && $format == $post['format']) {
             $paste['codefmt'] = $post['codefmt'];
         } else {
-            $geshi = new GeSHi($paste['editcode'], $format);
+            $geshi = new \GeSHi($paste['editcode'], $format);
 
             $geshi->enable_classes();
             $geshi->set_header_type(GESHI_HEADER_DIV);
@@ -88,8 +106,6 @@ class SinglePaste extends Pste_View
             $paste['codefmt'] = $geshi->parse_code();
             $paste['codecss'] = $geshi->get_stylesheet();
 
-            // Save it!
-            //$db->saveFormatting($pid, $post['codefmt'], $post['codecss']);
         }
         $paste['pid'] = $pid;
         $paste['downloadurl'] = $conf->url.$post['pid'];

@@ -30,7 +30,7 @@ class DB
     // Constructor - establishes DB connection
     public function __construct()
     {
-        $this->_conn = Pste_Database::getInstance()->getConnection();
+        $this->_conn = \Pste\Database::getInstance()->getConnection();
         $this->_driver = $this->_conn->getAttribute(PDO::ATTR_DRIVER_NAME);
         
     }

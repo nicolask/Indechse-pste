@@ -272,7 +272,7 @@ class Pastebin
 
                 $parent = $this->db->getPaste($parent_pid);
                 if ($parent) {
-                    $route = Pste_Registry::getInstance()->route;
+                    $route = \Pste\Registry::getInstance()->route;
                     $post['parent_poster'] = $parent['poster'];
                     $post['parent_url'] = $this->getPasteUrl($parent_pid);
                     $post['parent_postdate'] = $parent['postdate'];

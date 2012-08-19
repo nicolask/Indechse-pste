@@ -1,5 +1,23 @@
 <?php
-namespace Pste\Models;
+/*
+ * Copyright (C) 2012 Nicolas Krueger <nicolas.krueger@gmail.com>
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License
+ * as published by the Free Software Foundation; either version 3
+ * of the License, or (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
+ *
+ */
+
+namespace Pste\Model;
 
 class User
 {
@@ -7,7 +25,7 @@ class User
     
     /**
      *
-     * @var Pste_Db_User 
+     * @var \Pste\Db\User 
      */
     protected $_stmtBuilder;
     protected $_id;
@@ -15,7 +33,7 @@ class User
     protected $_profile = null;
     
     public function __construct($id=null) {
-        $this->_conn = \Pste_Database::getInstance()->getConnection();
+        $this->_conn = \Pste\Database::getInstance()->getConnection();
         $this->_initStatementBuilder();
         if ($id) {
             $this->_id = $id;
@@ -24,17 +42,7 @@ class User
     }
     
     protected function _initStatementBuilder() {
-        switch($this->_conn->getAttribute(\PDO::ATTR_DRIVER_NAME)) {
-            case 'pgsql':
-                include_once('Pste/Db/Pgsql/User.php');
-                $this->_stmtBuilder = new \Pste_Db_Pgsql_User();
-                break;
-            default:
-            case 'mysql':
-                include_once('Pste/Db/Mysql/User.php');
-                $this->_stmtBuilder = new \Pste_Db_Mysql_User();
-                break;
-        }
+        $this->_stmtBuilder = \Pste\Db\User::getBuilder($this->_conn);
     }
     
     public function find($username, $password) {
@@ -46,7 +54,7 @@ class User
         $result = $stmt->execute();
         
         if ($result) {
-            $data = $stmt->fetch(PDO::FETCH_ASSOC);
+            $data = $stmt->fetch(\PDO::FETCH_ASSOC);
             
             if (!$data) return false;
             

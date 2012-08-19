@@ -6,17 +6,17 @@
         ?>
         <?php if ($this->page > 2) : ?>
         <a href="<?=$this->url ?>?archive&page=1">
-            <img src="templates/default/images/gtk_goto_first_ltr.png" />
+            <img src="<?=$this->route()->templateRessourceUrl('images/gtk_goto_first_ltr.png') ?>" />
         </a> 
         <?php else: ?>
-        <img src="templates/default/images/gtk_goto_first_ltr.png" />
+        <img src="<?=$this->route()->templateRessourceUrl('images/gtk_goto_first_ltr.png') ?>" />
         <?php endif; ?>
         <?php if ($this->page > 1) : ?>
         <a href="<?=$this->url ?>?archive&page=<?= $this->page-1 ?>">
-            <img src="templates/default/images/gtk_go_forward_rtl.png" />
+            <img src="<?=$this->route()->templateRessourceUrl('images/gtk_go_forward_rtl.png') ?>" />
         </a>
         <?php else: ?>
-        <img src="templates/default/images/gtk_go_forward_rtl.png" />
+        <img src="<?=$this->route()->templateRessourceUrl('images/gtk_go_forward_rtl.png') ?>" />
         <?php endif; ?>
         <span class="page-enum">
         <?php
@@ -42,14 +42,18 @@
         ?>
         </span>
         <?php if ($this->page+1 <= $maxPage) :  ?>
-        <a href="<?=$this->url ?>?archive&page=<?= $this->page+1 ?>"><img src="templates/default/images/gtk_go_forward_ltr.png" /></a>
+        <a href="<?=$this->url ?>?archive&page=<?= $this->page+1 ?>">
+            <img src="<?=$this->route()->templateRessourceUrl('images/gtk_go_forward_ltr.png') ?>" />
+        </a>
         <?php else: ?>
         <img src="templates/default/images/gtk_go_forward_ltr.png" />
         <?php endif; ?>
         <?php if ($this->page+1 < $maxPage) :  ?>
-        <a href="<?=$this->url ?>?archive&page=<?= $maxPage ?>"><img src="templates/default/images/gtk_goto_last_ltr.png" /></a> 
+        <a href="<?=$this->url ?>?archive&page=<?= $maxPage ?>">
+            <img src="<?=$this->route()->templateRessourceUrl('images/gtk_goto_last_ltr.png') ?>" />
+        </a> 
         <?php else: ?>
-        <img src="templates/default/images/gtk_goto_last_ltr.png" />
+        <img src="<?=$this->route()->templateRessourceUrl('images/gtk_goto_last_ltr.png') ?>" />
         <?php endif; ?>
         
         <br />

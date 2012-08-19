@@ -17,7 +17,9 @@
  *
  */
 
-class Pste_View {
+namespace Pste;
+
+class View {
     
     private $_params = array();
     private $_template = '';
@@ -26,7 +28,7 @@ class Pste_View {
     
     /**
      *
-     * @var Pste_View $_forward 
+     * @var \Pste\View $_forward 
      */
     private $_forward = null;
     
@@ -35,7 +37,7 @@ class Pste_View {
     public function __construct($params=array())
     {
         $this->_initParams($params);
-        $this->_config = Pste_Registry::getInstance()->config;
+        $this->_config = \Pste_Registry::getInstance()->config;
         $this->_init();
     }
     
@@ -81,11 +83,11 @@ class Pste_View {
         return $content;
     }
     
-    public function forward(Pste_View $view) {
+    public function forward(\Pste\View $view) {
         $this->_forward = $view;
     }
     
-    public function followUp(Pste_View $view) {
+    public function followUp(\Pste\View $view) {
         $this->_followUp[] = $view;
     }
     
@@ -111,7 +113,7 @@ class Pste_View {
     
     public function __call($name, $arguments)
     {
-        $classname = 'Pste_View_Helper_'.ucfirst($name);
+        $classname = '\Pste_View_Helper_'.ucfirst($name);
         require_once('Pste/View/helpers/'.ucfirst($name).'.php');
         $helper = new $classname();
         return $helper->$name($arguments);

@@ -19,7 +19,7 @@
 
 namespace Pste\Component;
 
-class PasteForm extends \Pste_View
+class PasteForm extends \Pste\View
 {
     public function _init() {
         $this->setTemplate('components/paste_form.php');

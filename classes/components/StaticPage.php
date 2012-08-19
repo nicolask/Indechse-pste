@@ -19,7 +19,7 @@
 
 namespace Pste\Component;
 
-class StaticPage extends \Pste_View
+class StaticPage extends \Pste\View
 {
     public function _init() {
         $this->setTemplate($this->template);

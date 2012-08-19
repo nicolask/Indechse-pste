@@ -19,7 +19,7 @@
 
 namespace Pste\Component;
 
-class RecentItems extends \Pste_View {
+class RecentItems extends \Pste\View {
     protected function _init() {
         $this->setTemplate('components/recent_items.php');
         $this->getRecentItems();

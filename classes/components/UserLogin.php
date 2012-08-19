@@ -19,7 +19,7 @@
 
 namespace Pste\Component;
 
-class UserLogin extends \Pste_View {
+class UserLogin extends \Pste\View {
     public function _init() {
         $this->setTemplate('components/login.php');
         $this->getUserdata();

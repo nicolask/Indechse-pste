@@ -19,7 +19,7 @@
 
 namespace Pste\Component;
 
-class PasteArchive extends \Pste_View
+class PasteArchive extends \Pste\View
 {
 
     public function _init()

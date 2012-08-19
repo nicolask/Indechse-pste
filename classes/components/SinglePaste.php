@@ -19,7 +19,7 @@
 
 namespace Pste\Component;
 
-class SinglePaste extends \Pste_View
+class SinglePaste extends \Pste\View
 {
 
     public function _init()
